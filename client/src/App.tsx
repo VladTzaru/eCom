@@ -5,13 +5,16 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
 
+// Custom imports - PAGES
+import HomePage from './pages/HomePage';
+
 const App: React.FC = () => {
   return (
     <>
       <Header />
       <main className='py-4'>
         <Container>
-          <h1>Hi there</h1>
+          <HomePage />
         </Container>
       </main>
       <Footer />
