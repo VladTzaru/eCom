@@ -1,9 +1,16 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
-interface FooterProps {}
-
-const Footer: React.FC<FooterProps> = () => {
-  return <h1>Footer</h1>;
+const Footer: React.FC = () => {
+  return (
+    <footer>
+      <Container>
+        <Row>
+          <Col className='text-center py-3'>Copyright &copy; TzaruShop</Col>
+        </Row>
+      </Container>
+    </footer>
+  );
 };
 
 export default Footer;

@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='py-4'>
         <Container>
           <h1>Hi there</h1>
         </Container>
