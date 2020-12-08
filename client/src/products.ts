@@ -1,4 +1,4 @@
-export interface Products {
+export interface IProduct {
   _id: string;
   name: string;
   image: string;
@@ -11,7 +11,7 @@ export interface Products {
   numReviews: number;
 }
 
-export const products: Products[] = [
+export const products: IProduct[] = [
   {
     _id: '1',
     name: 'Airpods Wireless Bluetooth Headphones',

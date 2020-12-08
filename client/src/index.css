@@ -1,3 +1,15 @@
+body {
+  background: #f1f3f4;
+}
+
 main {
   min-height: 80vh;
+}
+
+.rating span i {
+  margin: 0.1rem;
+}
+
+.rating-text {
+  margin-left: 4px;
 }
