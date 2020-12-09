@@ -4,15 +4,25 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ProductDescription from '../components/Product/ProductDescription';
 import ProductSummary from '../components/Product/ProductSummary';
+import { IProduct } from '../products';
 
 interface MatchParams {
   name: string;
+  id: string;
+}
+
+interface Product extends IProduct {
+  image: string;
+  name: string;
+  price: number;
+  countInStock: number;
 }
 
 interface ProductPageProps extends RouteComponentProps<MatchParams> {}
 
 const ProductPage: React.FC<ProductPageProps> = ({ match }) => {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState<Product>(Object); // Temporary fix for empty object
+
   useEffect(() => {
     const fetchProduct = async (): Promise<void> => {
       const { data } = await Axios.get(`/api/products/${match.params.id}`);
