@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { IProduct } from '../products';
-import Rating from './Rating';
+import { IProduct } from '../../products';
+import Rating from '../Rating';
 
 interface ProductProps {
   product: IProduct;

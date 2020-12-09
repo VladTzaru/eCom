@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import Rating from '../components/Rating';
 import { products } from '../products';
+import ProductDescription from '../components/Product/ProductDescription';
+import ProductSummary from '../components/Product/ProductSummary';
 
 interface MatchParams {
   name: string;
@@ -22,58 +23,16 @@ const ProductPage: React.FC<ProductPageProps> = ({ match }) => {
         <Col md={5}>
           <Image fluid src={product.image} alt={product.name} />
         </Col>
+
         <Col md={4}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h3>{product.name}</h3>
-            </ListGroup.Item>
-
-            <ListGroup.Item>
-              <Rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
-              />
-            </ListGroup.Item>
-
-            <ListGroup.Item>${product.price}</ListGroup.Item>
-            <ListGroup.Item>{product.description}</ListGroup.Item>
-          </ListGroup>
+          <ProductDescription product={product} />
         </Col>
 
         <Col md={3}>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Price:</Col>
-                  <Col>
-                    <strong>${product.price}</strong>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>Status:</Col>
-                  <Col>
-                    <strong>
-                      {product.countInStock > 0 ? 'In stock' : 'Out of stock'}
-                    </strong>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Button
-                  disabled={product.countInStock === 0}
-                  className='btn-block'
-                  type='button'
-                >
-                  Add to cart
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
+          <ProductSummary
+            price={product.price}
+            countInStock={product.countInStock}
+          />
         </Col>
       </Row>
     </>
