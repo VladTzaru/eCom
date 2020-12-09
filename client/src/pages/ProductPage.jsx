@@ -1,7 +1,7 @@
-import React from 'react';
+import Axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Col, Image, Row } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { products } from '../products';
 import ProductDescription from '../components/Product/ProductDescription';
 import ProductSummary from '../components/Product/ProductSummary';
 
@@ -12,8 +12,14 @@ interface MatchParams {
 interface ProductPageProps extends RouteComponentProps<MatchParams> {}
 
 const ProductPage: React.FC<ProductPageProps> = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
-
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    const fetchProduct = async (): Promise<void> => {
+      const { data } = await Axios.get(`/api/products/${match.params.id}`);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [match.params.id]);
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
