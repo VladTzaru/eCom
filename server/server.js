@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import { notFound, errorHandler } from './middleware/error.js';
 
 // Import Routes
 import productRoutes from './routes/product.js';
@@ -11,6 +12,10 @@ const app = express();
 
 // Mount routes
 app.use('/api/products', productRoutes);
+
+// Error handling
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
