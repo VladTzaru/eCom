@@ -1,12 +1,12 @@
-import { ProductDispatchTypes } from '../actions/product/productTypes';
-import { ProductI } from '../../types/Product';
-import { ErrorI } from '../../types/Error';
+import { ProductDispatchTypes } from '../../actions/product/productTypes';
+import { ProductI } from '../../../types/Product';
+import { ErrorI } from '../../../types/Error';
 
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
-} from '../constants/product';
+} from '../../constants/product';
 
 interface InitialStateI {
   products: ProductI[];
@@ -19,7 +19,7 @@ const initialState: InitialStateI = {
   loading: false,
 };
 
-export const productList = (
+const productList = (
   state: InitialStateI = initialState,
   action: ProductDispatchTypes
 ): InitialStateI => {
@@ -48,3 +48,5 @@ export const productList = (
       return state;
   }
 };
+
+export default productList;

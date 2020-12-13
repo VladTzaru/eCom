@@ -9,4 +9,5 @@ export interface ProductI {
   countInStock: number;
   rating: number;
   numReviews: number;
+  reviews: string[];
 }
