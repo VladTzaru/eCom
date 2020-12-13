@@ -7,7 +7,9 @@ import Product from '../components/Product/Product';
 
 const HomePage: React.FC = () => {
     const dispatch = useDispatch();
-    const { products } = useSelector((state: RootStore) => state.productList);
+    const { products, loading, error } = useSelector(
+        (state: RootStore) => state.productList
+    );
 
     useEffect(() => {
         dispatch(listProducts());
@@ -16,13 +18,19 @@ const HomePage: React.FC = () => {
     return (
         <>
             <h1>Latest products</h1>
-            <Row>
-                {products.map((product) => (
-                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                        <Product product={product} />
-                    </Col>
-                ))}
-            </Row>
+            {loading ? (
+                <h1>Loading...</h1>
+            ) : error ? (
+                <h3>{error}</h3>
+            ) : (
+                <Row>
+                    {products.map((product) => (
+                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                            <Product product={product} />
+                        </Col>
+                    ))}
+                </Row>
+            )}
         </>
     );
 };
