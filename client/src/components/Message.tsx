@@ -4,14 +4,14 @@ import { Alert, Button } from 'react-bootstrap';
 interface MessageProps {
   variant?: string;
   children: React.ReactNode;
-  visible: boolean;
+  visible?: boolean;
   heading?: string;
   showButton?: boolean;
   buttonText?: string;
 }
 
 const Message: React.FC<MessageProps> = ({
-  visible = false,
+  visible = true,
   variant = 'info',
   showButton = false,
   children,

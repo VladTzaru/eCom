@@ -2,10 +2,10 @@ import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
 interface LoaderProps {
-  variant: string;
+  variant?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ variant }) => {
+const Loader: React.FC<LoaderProps> = ({ variant = 'primary' }) => {
   return (
     <Spinner
       variant={variant}
