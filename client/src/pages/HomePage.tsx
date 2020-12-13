@@ -5,6 +5,7 @@ import { listProducts } from '../redux/actions/product/product';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product/Product';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const HomePage: React.FC = () => {
       {loading ? (
         <Loader variant='primary' />
       ) : error ? (
-        <h3>{error}</h3>
+        <Message variant='danger'>{error}</Message>
       ) : (
         <Row>
           {products.map((product) => (
