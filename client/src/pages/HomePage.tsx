@@ -23,7 +23,9 @@ const HomePage: React.FC = () => {
       {loading ? (
         <Loader variant='primary' />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message visible={true} variant='danger'>
+          {error}
+        </Message>
       ) : (
         <Row>
           {products.map((product) => (
