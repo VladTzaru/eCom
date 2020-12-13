@@ -4,14 +4,14 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import ProductDescription from '../components/Product/ProductDescription';
 import ProductSummary from '../components/Product/ProductSummary';
-import { IProduct } from '../products';
+import { ProductI } from '../types/Product';
 
 interface MatchParams {
   name: string;
   id: string;
 }
 
-interface Product extends IProduct {
+interface Product extends ProductI {
   image: string;
   name: string;
   price: number;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { IProduct } from '../../products';
+import { ProductI } from '../../types/Product';
 import Rating from '../Rating';
 
 interface ProductProps {
-  product: IProduct;
+  product: ProductI;
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import Rating from '../Rating';
 import { ListGroup } from 'react-bootstrap';
-import { IProduct } from '../../products';
+import { ProductI } from '../../types/Product';
 
 interface ProductDescriptionProps {
-  product: IProduct;
+  product: ProductI;
 }
 
 const ProductDescription: React.FC<ProductDescriptionProps> = ({ product }) => {
