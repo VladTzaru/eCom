@@ -23,8 +23,8 @@ const HomePage: React.FC = () => {
       {loading ? (
         <Loader variant='primary' />
       ) : error ? (
-        <Message visible={true} variant='danger'>
-          {error}
+        <Message showButton={true} visible={true} variant='danger'>
+          <p>{error}</p>
         </Message>
       ) : (
         <Row>
