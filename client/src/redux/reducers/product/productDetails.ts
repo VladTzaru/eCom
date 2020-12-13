@@ -1,5 +1,4 @@
 import { ProductDispatchTypes } from '../../actions/product/productTypes';
-import { ErrorI } from '../../../types/Error';
 import { ProductI } from '../../../types/Product';
 
 import {
@@ -11,7 +10,7 @@ import {
 interface InitialStateI {
   product: ProductI;
   loading: boolean;
-  error?: ErrorI;
+  error?: string;
 }
 
 const product = {} as ProductI;

@@ -1,6 +1,5 @@
 import { ProductDispatchTypes } from '../../actions/product/productTypes';
 import { ProductI } from '../../../types/Product';
-import { ErrorI } from '../../../types/Error';
 
 import {
   PRODUCT_LIST_REQUEST,
@@ -11,7 +10,7 @@ import {
 interface InitialStateI {
   products: ProductI[];
   loading: boolean;
-  error?: ErrorI;
+  error?: string;
 }
 
 const initialState: InitialStateI = {

@@ -7,7 +7,6 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
 import { ProductI } from '../../../types/Product';
-import { ErrorI } from '../../../types/Error';
 
 /////////////////////////////////////////
 // Product list
@@ -23,7 +22,7 @@ export interface ProductListSuccess {
 
 export interface ProductListFail {
   type: typeof PRODUCT_LIST_FAIL;
-  payload: ErrorI;
+  payload: string;
 }
 
 /////////////////////////////////////////
@@ -40,7 +39,7 @@ export interface ProductDetailsSuccess {
 
 export interface ProductDetailsFail {
   type: typeof PRODUCT_DETAILS_FAIL;
-  payload: ErrorI;
+  payload: string;
 }
 
 export type ProductDispatchTypes =

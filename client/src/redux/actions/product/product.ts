@@ -9,6 +9,8 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
 import { ProductDispatchTypes } from './productTypes';
+import { ProductI } from '../../../types/Product';
+import { errorHandler } from '../../../utils/utils';
 
 export const listProducts = () => async (
   dispatch: Dispatch<ProductDispatchTypes>
@@ -18,7 +20,7 @@ export const listProducts = () => async (
       type: PRODUCT_LIST_REQUEST,
     });
 
-    const { data } = await axios.get('/api/products');
+    const { data } = await axios.get<ProductI[]>('/api/products');
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -27,10 +29,7 @@ export const listProducts = () => async (
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: errorHandler(error),
     });
   }
 };
@@ -43,7 +42,7 @@ export const productDetails = (id: string) => async (
       type: PRODUCT_DETAILS_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get<ProductI>(`/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -52,10 +51,7 @@ export const productDetails = (id: string) => async (
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: errorHandler(error),
     });
   }
 };
