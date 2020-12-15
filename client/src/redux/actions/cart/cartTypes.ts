@@ -11,6 +11,7 @@ export interface CartAddItem {
 
 export interface CartRemoveItem {
   type: typeof CART_REMOVE_ITEM;
+  payload: string;
 }
 
 export type CartDispatchTypes = CartAddItem | CartRemoveItem;

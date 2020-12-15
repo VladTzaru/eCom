@@ -35,6 +35,14 @@ const cart = (state = initialState, action: CartDispatchTypes) => {
         };
       }
 
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (item) => item.product !== action.payload
+        ),
+      };
+
     default:
       return state;
   }

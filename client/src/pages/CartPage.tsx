@@ -39,7 +39,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
 
   return (
     <Row>
-      <Col md={7}>
+      <Col md={8}>
         <h1>Shopping cart</h1>
         {cartItems.length === 0 ? (
           <Message showButton>
@@ -91,7 +91,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
         )}
       </Col>
 
-      <Col md={3}>
+      <Col md={4}>
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
@@ -117,8 +117,6 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
           </ListGroup>
         </Card>
       </Col>
-
-      <Col md={2}></Col>
     </Row>
   );
 };
