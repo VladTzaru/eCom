@@ -18,9 +18,8 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuantity(e.target.value);
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = () =>
     history.push(`/cart/${id}?quantity=${quantity}`);
-  };
 
   return (
     <Card>

@@ -9,6 +9,7 @@ import { Container } from 'react-bootstrap';
 // Custom imports - PAGES
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path='/' component={HomePage} exact />
             <Route path='/product/:id' component={ProductPage} />
+            <Route path='/cart/:id?' component={CartPage} />
           </Switch>
         </Container>
       </main>
