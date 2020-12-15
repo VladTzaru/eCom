@@ -11,3 +11,12 @@ export interface ProductI {
   numReviews: number;
   reviews: string[];
 }
+
+export interface CartProductI {
+  product: string;
+  name: string;
+  image: string;
+  price: number;
+  countInStock: number;
+  quantity: number;
+}

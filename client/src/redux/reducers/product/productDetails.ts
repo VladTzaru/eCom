@@ -7,7 +7,7 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
 
-interface InitialStateI {
+interface ProductDetailsInitialStateI {
   product: ProductI;
   loading: boolean;
   error?: string;
@@ -15,15 +15,15 @@ interface InitialStateI {
 
 const product = {} as ProductI;
 
-const initialState: InitialStateI = {
+const initialState: ProductDetailsInitialStateI = {
   product,
   loading: false,
 };
 
 const productDetails = (
-  state: InitialStateI = initialState,
+  state: ProductDetailsInitialStateI = initialState,
   action: ProductDispatchTypes
-): InitialStateI => {
+): ProductDetailsInitialStateI => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return {

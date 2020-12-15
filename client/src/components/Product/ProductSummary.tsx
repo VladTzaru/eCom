@@ -11,7 +11,7 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({
   price,
   countInStock,
 }) => {
-  const [quantity, setQuantity] = useState<string>('0');
+  const [quantity, setQuantity] = useState<string>('1');
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
 

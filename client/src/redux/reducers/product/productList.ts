@@ -7,21 +7,21 @@ import {
   PRODUCT_LIST_FAIL,
 } from '../../constants/product';
 
-interface InitialStateI {
+interface ProductListInitialStateI {
   products: ProductI[];
   loading: boolean;
   error?: string;
 }
 
-const initialState: InitialStateI = {
+const initialState: ProductListInitialStateI = {
   products: [],
   loading: false,
 };
 
 const productList = (
-  state: InitialStateI = initialState,
+  state: ProductListInitialStateI = initialState,
   action: ProductDispatchTypes
-): InitialStateI => {
+): ProductListInitialStateI => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return {
