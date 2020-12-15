@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Message from './Message';
-import { removeFromCart, addToCart } from '../redux/actions/cart/cart';
-import { CartProductI } from '../customTypes';
+import Message from '../Message';
+import { removeFromCart, addToCart } from '../../redux/actions/cart/cart';
+import { CartProductI } from '../../customTypes';
 import { Row, Col, ListGroup, Button, Form, Image } from 'react-bootstrap';
 
 interface CartItemsListProps {

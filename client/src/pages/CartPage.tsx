@@ -4,8 +4,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { addToCart } from '../redux/actions/cart/cart';
 import { MatchParamsI } from '../customTypes';
 import { RootStore } from '../redux/store';
-import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
-import CartItemsList from '../components/CartItemsList';
+import { Row, Col } from 'react-bootstrap';
+import CartItemsList from '../components/Cart/CartItemsList';
+import CartSubtotal from '../components/Cart/CartSubtotal';
 
 interface CartPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -21,10 +22,6 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
     }
   }, [dispatch, productId, quantity]);
 
-  const checkoutHandler = (): void => {
-    history.push('/login?redirect=shipping');
-  };
-
   return (
     <Row>
       <Col md={8}>
@@ -33,30 +30,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
       </Col>
 
       <Col md={4}>
-        <Card>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>
-                Subotal (
-                {cartItems.reduce((acc, item) => acc + item.quantity, 0)}) items
-              </h2>
-              $
-              {cartItems
-                .reduce((acc, item) => acc + item.quantity * item.price, 0)
-                .toFixed(2)}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                Go to checkout
-              </Button>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
+        <CartSubtotal cartItems={cartItems} history={history} />
       </Col>
     </Row>
   );
