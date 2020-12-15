@@ -20,6 +20,7 @@ const cart = (state = initialState, action: CartDispatchTypes) => {
       );
 
       if (alreadyAddedToCart) {
+        console.log('bango');
         return {
           ...state,
           cartItems: state.cartItems.map((i) =>
@@ -27,9 +28,10 @@ const cart = (state = initialState, action: CartDispatchTypes) => {
           ),
         };
       } else {
+        console.log('fucki');
         return {
           ...state,
-          cardItems: [...state.cartItems, item],
+          cartItems: [...state.cartItems, item],
         };
       }
 
