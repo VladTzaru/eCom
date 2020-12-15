@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { addToCart } from '../redux/actions/cart/cart';
+import { addToCart, removeFromCart } from '../redux/actions/cart/cart';
 import { MatchParamsI } from '../customTypes';
 import { RootStore } from '../redux/store';
 import {
@@ -30,7 +30,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
   }, [dispatch, productId, quantity]);
 
   const removeFromCartHandler = (id: string): void => {
-    console.log(id);
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = (): void => {
@@ -42,8 +42,8 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
       <Col md={8}>
         <h1>Shopping cart</h1>
         {cartItems.length === 0 ? (
-          <Message showButton>
-            Your cart is empty. <Link to='/'>Go to Home</Link>{' '}
+          <Message heading='Your cart is empty'>
+            <Link to='/'>Go to Home</Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
