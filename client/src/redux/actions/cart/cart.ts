@@ -4,6 +4,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../constants/cart';
 import { CartDispatchTypes } from './cartTypes';
 import { RootStore } from '../../store';
 import { ProductI } from '../../../customTypes';
+import { addDataFromReduxStateToLocalStorage } from '../../../utils/utils';
 
 export const addToCart = (id: string, qty: number) => async (
   dispatch: Dispatch<CartDispatchTypes>,
@@ -23,7 +24,10 @@ export const addToCart = (id: string, qty: number) => async (
     },
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  addDataFromReduxStateToLocalStorage(
+    'cartItems',
+    () => getState().cart.cartItems
+  );
 };
 
 export const removeFromCart = (id: string) => async (
@@ -35,5 +39,8 @@ export const removeFromCart = (id: string) => async (
     payload: id,
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  addDataFromReduxStateToLocalStorage(
+    'cartItems',
+    () => getState().cart.cartItems
+  );
 };
