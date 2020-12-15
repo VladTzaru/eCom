@@ -1,7 +1,7 @@
 import React from 'react';
 import Rating from '../Rating';
 import { ListGroup } from 'react-bootstrap';
-import { ProductI } from '../../types/Product';
+import { ProductI } from '../../customTypes';
 
 interface ProductDescriptionProps {
   product: ProductI;

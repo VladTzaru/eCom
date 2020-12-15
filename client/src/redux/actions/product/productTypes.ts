@@ -6,7 +6,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
-import { ProductI } from '../../../types/Product';
+import { ProductI } from '../../../customTypes';
 
 /////////////////////////////////////////
 // Product list

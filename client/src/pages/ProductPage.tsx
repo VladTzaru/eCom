@@ -8,13 +8,9 @@ import ProductSummary from '../components/Product/ProductSummary';
 import { productDetails } from '../redux/actions/product/product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { MatchParamsI } from '../customTypes';
 
-interface MatchParams {
-  name: string;
-  id: string;
-}
-
-interface ProductPageProps extends RouteComponentProps<MatchParams> {}
+interface ProductPageProps extends RouteComponentProps<MatchParamsI> {}
 
 const ProductPage: React.FC<ProductPageProps> = ({ match }) => {
   const dispatch = useDispatch();

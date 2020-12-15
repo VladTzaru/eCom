@@ -1,5 +1,5 @@
 import { ProductDispatchTypes } from '../../actions/product/productTypes';
-import { ProductI } from '../../../types/Product';
+import { ProductI } from '../../../customTypes';
 
 import {
   PRODUCT_DETAILS_REQUEST,

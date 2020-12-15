@@ -20,3 +20,8 @@ export interface CartProductI {
   countInStock: number;
   quantity: number;
 }
+
+export interface MatchParamsI {
+  name: string;
+  id: string;
+}

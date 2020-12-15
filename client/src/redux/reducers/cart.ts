@@ -1,6 +1,6 @@
 import { CartDispatchTypes } from '../actions/cart/cartTypes';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cart';
-import { CartProductI } from '../../types/Product';
+import { CartProductI } from '../../customTypes';
 
 interface CartInitialStateI {
   cartItems: CartProductI[];

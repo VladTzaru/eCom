@@ -9,7 +9,7 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
 import { ProductDispatchTypes } from './productTypes';
-import { ProductI } from '../../../types/Product';
+import { ProductI } from '../../../customTypes';
 import { errorHandler } from '../../../utils/utils';
 
 export const listProducts = () => async (

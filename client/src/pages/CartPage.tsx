@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { addToCart } from '../redux/actions/cart/cart';
+import { MatchParamsI } from '../customTypes';
 import {
   Row,
   Col,
@@ -13,12 +14,7 @@ import {
   Card,
 } from 'react-bootstrap';
 
-interface MatchParams {
-  name: string;
-  id?: string;
-}
-
-interface CartPageProps extends RouteComponentProps<MatchParams> {}
+interface CartPageProps extends RouteComponentProps<MatchParamsI> {}
 
 const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
   const productId = match.params.id;

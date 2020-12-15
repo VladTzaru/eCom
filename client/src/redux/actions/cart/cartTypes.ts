@@ -1,5 +1,5 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../constants/cart';
-import { CartProductI } from '../../../types/Product';
+import { CartProductI } from '../../../customTypes';
 
 /////////////////////////////////////////
 // Cart

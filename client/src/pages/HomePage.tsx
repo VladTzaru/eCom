@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { ProductI } from '../types/Product';
+import { ProductI } from '../customTypes';
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();

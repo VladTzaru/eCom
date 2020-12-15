@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { CART_ADD_ITEM } from '../../constants/cart';
 import { CartDispatchTypes } from './cartTypes';
 import { RootStore } from '../../store';
-import { ProductI } from '../../../types/Product';
+import { ProductI } from '../../../customTypes';
 
 export const addToCart = (id: string, qty: number) => async (
   dispatch: Dispatch<CartDispatchTypes>,
