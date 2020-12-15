@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { addToCart, removeFromCart } from '../redux/actions/cart/cart';
+import { RouteComponentProps } from 'react-router-dom';
+import { addToCart } from '../redux/actions/cart/cart';
 import { MatchParamsI } from '../customTypes';
 import { RootStore } from '../redux/store';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from 'react-bootstrap';
+import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
+import CartItemsList from '../components/CartItemsList';
 
 interface CartPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -29,10 +21,6 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
     }
   }, [dispatch, productId, quantity]);
 
-  const removeFromCartHandler = (id: string): void => {
-    dispatch(removeFromCart(id));
-  };
-
   const checkoutHandler = (): void => {
     history.push('/login?redirect=shipping');
   };
@@ -41,54 +29,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         <h1>Shopping cart</h1>
-        {cartItems.length === 0 ? (
-          <Message heading='Your cart is empty'>
-            <Link to='/'>Go to Home</Link>
-          </Message>
-        ) : (
-          <ListGroup variant='flush'>
-            {cartItems.map((item) => (
-              <ListGroup.Item key={item.product}>
-                <Row>
-                  <Col md={2}>
-                    <Image fluid rounded alt={item.name} src={item.image} />
-                  </Col>
-                  <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
-                  </Col>
-                  <Col md={2}>${item.price}</Col>
-                  <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={item.quantity}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {/* Turn countInStock into an iterable and render options */}
-                      {[...Array(item.countInStock).keys()].map((n) => (
-                        <option key={n + 1} value={n + 1}>
-                          {n + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Col>
-                  <Col md={2}>
-                    <Button
-                      type='button'
-                      variant='light'
-                      onClick={() => removeFromCartHandler(item.product)}
-                    >
-                      <i className='fas fa-trash' />
-                    </Button>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        )}
+        <CartItemsList cartItems={cartItems} />
       </Col>
 
       <Col md={4}>
