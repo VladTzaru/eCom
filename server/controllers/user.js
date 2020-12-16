@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
 import defineToken from '../utils/defineToken.js';
+import { response } from 'express';
 
 // @desc     Auth user and get token
 // @route    GET /api/users/login
@@ -25,4 +26,11 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser };
+// @desc     Get user profile
+// @route    POST /api/users/profile
+// @access   Private
+const getUserProfile = asyncHandler(async (req, res) => {
+  res.send('Good');
+});
+
+export { authUser, getUserProfile };
