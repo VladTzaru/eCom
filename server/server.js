@@ -5,13 +5,17 @@ import { notFound, errorHandler } from './middleware/error.js';
 
 // Import Routes
 import productRoutes from './routes/product.js';
+import userRoutes from './routes/user.js';
 
+// Config
 dotenv.config();
 connectDB();
 const app = express();
+app.use(express.json());
 
 // Mount routes
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 // Error handling
 app.use(notFound);
