@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
+import defineToken from '../utils/defineToken.js';
 
 // @desc     Auth user and get token
 // @route    GET /api/users/login
@@ -16,7 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: null,
+      token: defineToken(user._id),
     });
   } else {
     res.status(401);
