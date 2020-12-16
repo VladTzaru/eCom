@@ -11,7 +11,7 @@ const validateUser = asyncHandler(async (req, res, next) => {
       token = headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Append DB user to req object
+      // Append DB user (without password) to req object
       req.user = await User.findById(decodedToken.userId).select('-password');
 
       next();
