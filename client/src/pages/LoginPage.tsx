@@ -1,8 +1,9 @@
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import React from 'react';
-import { Button, FormGroup, FormLabel } from 'react-bootstrap';
+import { Button, FormGroup } from 'react-bootstrap';
 import FormContainer from '../components/Form/FormContainer';
 import * as Yup from 'yup';
+import FormInput from '../components/Form/FormInput';
 
 interface Values {
   email: string;
@@ -29,32 +30,27 @@ const LoginPage = () => {
       <FormContainer>
         <Form>
           <FormGroup>
-            <FormLabel>Email</FormLabel>
             <Field
-              className='form-control'
+              label='Email'
               name='email'
-              placeholder='Enter your email'
-            />
-            <ErrorMessage
-              name='email'
-              render={(err) => <div style={{ color: 'red' }}>{err}</div>}
+              component={FormInput}
+              placeholder='Enter email'
             />
           </FormGroup>
+
           <FormGroup>
-            <FormLabel>Password</FormLabel>
             <Field
-              className='form-control'
+              label='Password'
               name='password'
-              placeholder='Enter your password'
-            />
-            <ErrorMessage
-              name='password'
-              render={(err) => <div style={{ color: 'red' }}>{err}</div>}
+              type='password'
+              component={FormInput}
+              placeholder='Enter password'
             />
           </FormGroup>
+
           <FormGroup>
             <Button variant='primary' type='submit'>
-              Submit
+              Log in
             </Button>
           </FormGroup>
         </Form>
