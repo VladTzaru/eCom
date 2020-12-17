@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
   password: Yup.string().required().min(6),
 });
 
-const LoginPage: React.FC<LoginPageProps> = ({ location, history }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ history }) => {
   const dispatch = useDispatch();
   const { userDetails, loading, error } = useSelector(
     (state: RootStore) => state.user
@@ -40,7 +40,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h4 className='mb-4'>Login to your account</h4>
+      <h4>Login to your account</h4>
       {error && (
         <Message visible={true} variant='danger'>
           {error}
@@ -54,32 +54,38 @@ const LoginPage: React.FC<LoginPageProps> = ({ location, history }) => {
           dispatch(login(email, password));
         }}
       >
-        <Form>
-          <FormGroup>
-            <Field
-              label='Email'
-              name='email'
-              component={FormInput}
-              placeholder='Enter email'
-            />
-          </FormGroup>
+        {({ dirty, isValid }) => (
+          <Form>
+            <FormGroup>
+              <Field
+                label='Email'
+                name='email'
+                component={FormInput}
+                placeholder='Enter email'
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Field
-              label='Password'
-              name='password'
-              type='password'
-              component={FormInput}
-              placeholder='Enter password'
-            />
-          </FormGroup>
+            <FormGroup>
+              <Field
+                label='Password'
+                name='password'
+                type='password'
+                component={FormInput}
+                placeholder='Enter password'
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Button variant='primary' type='submit'>
-              Log in
-            </Button>
-          </FormGroup>
-        </Form>
+            <FormGroup>
+              <Button
+                disabled={!isValid || !dirty || loading}
+                variant='primary'
+                type='submit'
+              >
+                {loading ? 'Loading...' : 'Login'}
+              </Button>
+            </FormGroup>
+          </Form>
+        )}
       </Formik>
 
       <Row className='py-3'>
