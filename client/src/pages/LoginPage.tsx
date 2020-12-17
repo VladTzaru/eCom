@@ -1,6 +1,7 @@
-import { Formik } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Button, FormGroup, FormLabel } from 'react-bootstrap';
+import FormContainer from '../components/Form/FormContainer';
 
 interface Values {
   email: string;
@@ -18,38 +19,31 @@ const LoginPage = () => {
       initialValues={initialValues}
       onSubmit={(values) => console.log(values)}
     >
-      {({ values, handleChange, handleSubmit }) => (
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Group controlId='email'>
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                value={values.email}
-                onChange={handleChange}
-                type='email'
-                placeholder='Enter email'
-              />
-              <Form.Text className='text-muted'>
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                value={values.password}
-                type='password'
-                onChange={handleChange}
-                placeholder='Password'
-              />
-            </Form.Group>
-
+      <FormContainer>
+        <Form>
+          <FormGroup>
+            <FormLabel>Email</FormLabel>
+            <Field
+              className='form-control'
+              name='email'
+              placeholder='Enter your email'
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Password</FormLabel>
+            <Field
+              className='form-control'
+              name='password'
+              placeholder='Enter your password'
+            />
+          </FormGroup>
+          <FormGroup>
             <Button variant='primary' type='submit'>
               Submit
             </Button>
-          </Form.Group>
+          </FormGroup>
         </Form>
-      )}
+      </FormContainer>
     </Formik>
   );
 };
