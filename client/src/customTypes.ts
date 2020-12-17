@@ -33,3 +33,12 @@ export interface UserI {
   isAdmin: boolean;
   token: string;
 }
+
+export interface InitialStoreStateI {
+  cart: {
+    cartItems: CartProductI[];
+  };
+  user: {
+    userDetails: UserI;
+  };
+}
