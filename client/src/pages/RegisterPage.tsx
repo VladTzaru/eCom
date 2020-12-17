@@ -55,7 +55,6 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history }) => {
         validationSchema={validationSchema}
         onSubmit={({ email, password, name }) => {
           dispatch(register(email, password, name));
-          history.push('/');
         }}
       >
         {({ dirty, isValid }) => (
