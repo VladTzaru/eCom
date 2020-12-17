@@ -6,6 +6,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from '../constants/user';
 
 export interface UserInitialStateI {
@@ -20,7 +23,7 @@ const initialState: UserInitialStateI = {
   error: null,
 };
 
-const userLogin = (
+const user = (
   state: UserInitialStateI = initialState,
   action: UserDispatchTypes
 ): UserInitialStateI => {
@@ -53,9 +56,30 @@ const userLogin = (
         loading: false,
       };
 
+    case USER_REGISTER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userDetails: action.payload,
+      };
+
+    case USER_REGISTER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
 };
 
-export default userLogin;
+export default user;

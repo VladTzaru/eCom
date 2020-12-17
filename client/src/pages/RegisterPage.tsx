@@ -9,6 +9,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { RootStore } from '../redux/store';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { register } from '../redux/actions/user/user';
 
 interface Values {
   email: string;
@@ -53,7 +54,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ history }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={({ email, password, name }) => {
-          console.log(email, password, name);
+          dispatch(register(email, password, name));
+          history.push('/');
         }}
       >
         {({ dirty, isValid }) => (
