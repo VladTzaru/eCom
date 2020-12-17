@@ -1,5 +1,5 @@
 import { UserDispatchTypes } from '../actions/user/userTypes';
-import { UserI, ErrorT } from '../../customTypes';
+import { UserI, Nullable, ErrorT } from '../../customTypes';
 
 import {
   USER_LOGIN_REQUEST,
@@ -9,13 +9,13 @@ import {
 } from '../constants/user';
 
 export interface UserInitialStateI {
-  userDetails: UserI | {};
+  userDetails: Nullable<UserI>;
   loading?: boolean;
   error?: ErrorT<string>;
 }
 
 const initialState: UserInitialStateI = {
-  userDetails: {},
+  userDetails: null,
   loading: false,
   error: null,
 };
@@ -49,7 +49,7 @@ const userLogin = (
     case USER_LOGOUT:
       return {
         ...state,
-        userDetails: {},
+        userDetails: null,
         loading: false,
       };
 

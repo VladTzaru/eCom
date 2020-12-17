@@ -16,7 +16,7 @@ const App: React.FC = () => {
   return (
     <>
       <Header />
-      <main className='py-4'>
+      <main>
         <Container>
           <Switch>
             <Route path='/' component={HomePage} exact />

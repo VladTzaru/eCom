@@ -32,12 +32,14 @@ export interface MatchParamsI {
 }
 
 export interface UserI {
-  _id: string;
-  name: string;
-  email: string;
-  isAdmin: boolean;
-  token: string;
+  _id?: string;
+  name?: string;
+  email?: string;
+  isAdmin?: boolean;
+  token?: string;
 }
+
+export type Nullable<T> = T | null;
 
 export interface InitialStoreStateI {
   productList?: ProductListInitialStateI;
