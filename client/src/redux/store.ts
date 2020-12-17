@@ -8,15 +8,25 @@ const cartItemsFromLocalStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems') || '{}')
   : [];
 
+const userDetailsFromStorage = localStorage.getItem('userDetails')
+  ? JSON.parse(localStorage.getItem('userDetails') || '{}')
+  : null;
+
 interface InitialStateI {
   cart: {
     cartItems: CartProductI[];
+  };
+  user: {
+    userDetails: {};
   };
 }
 
 const initialState: InitialStateI = {
   cart: {
     cartItems: cartItemsFromLocalStorage,
+  },
+  user: {
+    userDetails: userDetailsFromStorage,
   },
 };
 

@@ -14,7 +14,6 @@ const FormInput: React.FC<FormInputCustomProps & FieldProps> = ({
   label,
   ...props
 }) => {
-  console.log(errors[field.name]);
   return (
     <>
       {label && <FormLabel>{label}</FormLabel>}

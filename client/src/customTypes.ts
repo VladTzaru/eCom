@@ -25,3 +25,11 @@ export interface MatchParamsI {
   name: string;
   id: string;
 }
+
+export interface UserI {
+  _id: string;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+  token: string;
+}

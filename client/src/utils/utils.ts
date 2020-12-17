@@ -7,6 +7,7 @@ export const errorHandler = (error: any): string => {
 export const addDataFromReduxStateToLocalStorage = (
   key: string,
   accessStore: () => void
-): void => {
-  localStorage.setItem(key, JSON.stringify(accessStore()));
-};
+): void => localStorage.setItem(key, JSON.stringify(accessStore()));
+
+export const addDataToLocalStorage = (key: string, data: any): void =>
+  localStorage.setItem(key, JSON.stringify(data));
