@@ -2,31 +2,24 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/rootReducer';
-import { CartProductI } from '../customTypes';
-
-const cartItemsFromLocalStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems') || '{}')
-  : [];
-
-const userDetailsFromStorage = localStorage.getItem('userDetails')
-  ? JSON.parse(localStorage.getItem('userDetails') || '{}')
-  : null;
+import { CartProductI, UserI } from '../customTypes';
+import { getDataFromLocalStorage } from '../utils/utils';
 
 interface InitialStateI {
   cart: {
     cartItems: CartProductI[];
   };
   user: {
-    userDetails: {};
+    userDetails: UserI;
   };
 }
 
 const initialState: InitialStateI = {
   cart: {
-    cartItems: cartItemsFromLocalStorage,
+    cartItems: getDataFromLocalStorage('cartItems', []),
   },
   user: {
-    userDetails: userDetailsFromStorage,
+    userDetails: getDataFromLocalStorage('userDetails', null),
   },
 };
 
