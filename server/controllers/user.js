@@ -21,7 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password.');
+    throw new Error('Invalid email or password');
   }
 });
 
@@ -55,13 +55,13 @@ const registerUser = asyncHandler(async (req, res) => {
   } else {
     res.status(400);
     throw new Error(
-      'Could not create user. Check your input data and try again.'
+      'Could not create user. Check your input data and try again'
     );
   }
 });
 
 // @desc     Get user profile
-// @route    POST /api/users/profile
+// @route    GET /api/users/profile
 // @access   Private
 const getUserProfile = asyncHandler(async (req, res) => {
   const { user } = req;
@@ -80,4 +80,31 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getUserProfile, registerUser };
+// @desc     Update user profile
+// @route    PUT /api/users/profile
+// @access   Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { user } = req;
+  const foundUser = await User.findById(user._id);
+
+  if (foundUser) {
+    foundUser.name = req.body.name || foundUser.name;
+    foundUser.email = req.body.email || foundUser.email;
+    if (req.body.password) foundUser.password = req.body.password;
+
+    const updatedUser = await foundUser.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: defineToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+export { authUser, getUserProfile, registerUser, updateUserProfile };
