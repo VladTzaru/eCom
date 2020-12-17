@@ -1,7 +1,8 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import React from 'react';
 import { Button, FormGroup, FormLabel } from 'react-bootstrap';
 import FormContainer from '../components/Form/FormContainer';
+import * as Yup from 'yup';
 
 interface Values {
   email: string;
@@ -13,10 +14,16 @@ const initialValues: Values = {
   password: '',
 };
 
+const validationSchema = Yup.object({
+  email: Yup.string().email().required(),
+  password: Yup.string().required().min(6),
+});
+
 const LoginPage = () => {
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values) => console.log(values)}
     >
       <FormContainer>
@@ -28,6 +35,10 @@ const LoginPage = () => {
               name='email'
               placeholder='Enter your email'
             />
+            <ErrorMessage
+              name='email'
+              render={(err) => <div style={{ color: 'red' }}>{err}</div>}
+            />
           </FormGroup>
           <FormGroup>
             <FormLabel>Password</FormLabel>
@@ -35,6 +46,10 @@ const LoginPage = () => {
               className='form-control'
               name='password'
               placeholder='Enter your password'
+            />
+            <ErrorMessage
+              name='password'
+              render={(err) => <div style={{ color: 'red' }}>{err}</div>}
             />
           </FormGroup>
           <FormGroup>
