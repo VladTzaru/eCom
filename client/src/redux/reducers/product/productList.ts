@@ -1,5 +1,5 @@
 import { ProductDispatchTypes } from '../../actions/product/productTypes';
-import { ProductI } from '../../../customTypes';
+import { ProductI, ErrorT } from '../../../customTypes';
 
 import {
   PRODUCT_LIST_REQUEST,
@@ -10,12 +10,13 @@ import {
 interface ProductListInitialStateI {
   products: ProductI[];
   loading: boolean;
-  error?: string;
+  error: ErrorT<string>;
 }
 
 const initialState: ProductListInitialStateI = {
   products: [],
   loading: false,
+  error: null,
 };
 
 const productList = (
@@ -27,6 +28,7 @@ const productList = (
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case PRODUCT_LIST_SUCCESS:

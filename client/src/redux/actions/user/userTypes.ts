@@ -5,7 +5,7 @@ import {
   USER_LOGOUT,
 } from '../../constants/user';
 
-import { UserI } from '../../../customTypes';
+import { UserI, ErrorT } from '../../../customTypes';
 
 /////////////////////////////////////////
 // Login / Logout
@@ -21,7 +21,7 @@ export interface UserLoginSuccess {
 
 export interface UserLoginFail {
   type: typeof USER_LOGIN_FAIL;
-  payload: string;
+  payload: ErrorT<string>;
 }
 
 export interface UserLogout {

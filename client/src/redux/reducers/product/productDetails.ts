@@ -1,5 +1,5 @@
 import { ProductDispatchTypes } from '../../actions/product/productTypes';
-import { ProductI } from '../../../customTypes';
+import { ProductI, ErrorT } from '../../../customTypes';
 
 import {
   PRODUCT_DETAILS_REQUEST,
@@ -10,7 +10,7 @@ import {
 interface ProductDetailsInitialStateI {
   product: ProductI;
   loading: boolean;
-  error?: string;
+  error: ErrorT<string>;
 }
 
 const product = {} as ProductI;
@@ -18,6 +18,7 @@ const product = {} as ProductI;
 const initialState: ProductDetailsInitialStateI = {
   product,
   loading: false,
+  error: null,
 };
 
 const productDetails = (
@@ -29,6 +30,7 @@ const productDetails = (
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case PRODUCT_DETAILS_SUCCESS:

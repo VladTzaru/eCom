@@ -42,3 +42,5 @@ export interface InitialStoreStateI {
     userDetails: UserI;
   };
 }
+
+export type ErrorT<T> = T | null;
