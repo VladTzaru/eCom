@@ -8,10 +8,10 @@ import {
   USER_LOGOUT,
 } from '../constants/user';
 
-interface UserInitialStateI {
+export interface UserInitialStateI {
   userDetails: UserI | {};
   loading?: boolean;
-  error: ErrorT<string>;
+  error?: ErrorT<string>;
 }
 
 const initialState: UserInitialStateI = {

@@ -1,3 +1,8 @@
+import { ProductDetailsInitialStateI } from './redux/reducers/product/productDetails';
+import { ProductListInitialStateI } from './redux/reducers/product/productList';
+import { CartInitialStateI } from './redux/reducers/cart';
+import { UserInitialStateI } from './redux/reducers/user';
+
 export interface ProductI {
   _id: string;
   name: string;
@@ -35,12 +40,10 @@ export interface UserI {
 }
 
 export interface InitialStoreStateI {
-  cart: {
-    cartItems: CartProductI[];
-  };
-  user: {
-    userDetails: UserI;
-  };
+  productList?: ProductListInitialStateI;
+  productDetails?: ProductDetailsInitialStateI;
+  cart?: CartInitialStateI;
+  user?: UserInitialStateI;
 }
 
 export type ErrorT<T> = T | null;

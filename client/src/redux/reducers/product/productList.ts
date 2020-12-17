@@ -7,7 +7,7 @@ import {
   PRODUCT_LIST_FAIL,
 } from '../../constants/product';
 
-interface ProductListInitialStateI {
+export interface ProductListInitialStateI {
   products: ProductI[];
   loading: boolean;
   error: ErrorT<string>;

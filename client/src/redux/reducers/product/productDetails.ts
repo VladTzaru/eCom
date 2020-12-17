@@ -7,7 +7,7 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../../constants/product';
 
-interface ProductDetailsInitialStateI {
+export interface ProductDetailsInitialStateI {
   product: ProductI;
   loading: boolean;
   error: ErrorT<string>;

@@ -2,7 +2,7 @@ import { CartDispatchTypes } from '../actions/cart/cartTypes';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cart';
 import { CartProductI } from '../../customTypes';
 
-interface CartInitialStateI {
+export interface CartInitialStateI {
   cartItems: CartProductI[];
 }
 
