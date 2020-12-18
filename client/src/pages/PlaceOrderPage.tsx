@@ -5,7 +5,7 @@ import {
   calculateTax,
   calculateTotalPrice,
 } from '../utils/utils';
-import { Button, Row, Col, Card, Image, ListGroup } from 'react-bootstrap';
+import { Button, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItemsList from '../components/Cart/CartItemsList';
 import CheckoutSteps from '../components/CheckoutSteps';

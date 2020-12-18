@@ -16,7 +16,7 @@ interface Values {
 interface PaymentMethodProps extends RouteComponentProps {}
 
 const initialValues: Values = {
-  checked: ['PayPal'],
+  checked: ['PayPal or Credit card'],
 };
 
 const validationSchema = Yup.object({
@@ -46,7 +46,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
                 label='PayPal or Credit card'
                 type='checkbox'
                 name='checked'
-                value='PayPal'
+                value='PayPal or Credit card'
                 component={FormInputCheck}
               />
             </FormGroup>
