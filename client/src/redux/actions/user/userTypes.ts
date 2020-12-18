@@ -10,6 +10,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_SAVE_SHIPPING_INFO,
+  USER_SAVE_PAYMENT_METHOD,
 } from '../../constants/user';
 
 import { UserI, ErrorT, ShippingI } from '../../../customTypes';
@@ -77,6 +78,14 @@ export interface UserSaveShippingInfo {
   payload: ShippingI;
 }
 
+/////////////////////////////////////////
+// Payment method
+/////////////////////////////////////////
+export interface UserSavePaymentMethod {
+  type: typeof USER_SAVE_PAYMENT_METHOD;
+  payload: string;
+}
+
 export type UserDispatchTypes =
   | UserLoginRequest
   | UserLoginSuccess
@@ -88,4 +97,5 @@ export type UserDispatchTypes =
   | UserUpdateRequest
   | UserUpdateSuccess
   | UserUpdateFail
-  | UserSaveShippingInfo;
+  | UserSaveShippingInfo
+  | UserSavePaymentMethod;
