@@ -4,11 +4,11 @@ import { Formik, Field, Form } from 'formik';
 import { Button, FormGroup } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { History } from 'history';
-import FormInput from '../components/Form/FormInput';
-import FormContainer from '../components/Form/FormContainer';
-import { saveShippingInfo } from '../redux/actions/user/user';
-import { RootStore } from '../redux/store';
-import CheckoutSteps from '../components/CheckoutSteps';
+import FormInput from '../../components/Form/FormInput';
+import FormContainer from '../../components/Form/FormContainer';
+import { saveShippingInfo } from '../../redux/actions/user/user';
+import { RootStore } from '../../redux/store';
+import CheckoutSteps from '../../components/CheckoutSteps';
 
 interface Values {
   address?: string;

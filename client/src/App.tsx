@@ -8,14 +8,14 @@ import { Container } from 'react-bootstrap';
 
 // Custom imports - PAGES
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 import ProductPage from './pages/ProductPage';
 import ProfilePage from './pages/ProfilePage';
-import ShippingPage from './pages/ShippingPage';
-import PaymentPage from './pages/PaymentMethodPage';
-import PlaceOrderPage from './pages/PlaceOrderPage';
-import CartPage from './pages/CartPage';
+import ShippingPage from './pages/checkout/ShippingPage';
+import PaymentPage from './pages/checkout/PaymentMethodPage';
+import PlaceOrderPage from './pages/checkout/PlaceOrderPage';
+import CartPage from './pages/checkout/CartPage';
 
 const App: React.FC = () => {
   return (

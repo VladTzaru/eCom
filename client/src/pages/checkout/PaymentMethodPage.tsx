@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Button, FormGroup } from 'react-bootstrap';
-import FormContainer from '../components/Form/FormContainer';
+import FormContainer from '../../components/Form/FormContainer';
 import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router-dom';
-import CheckoutSteps from '../components/CheckoutSteps';
-import FormInputCheck from '../components/Form/FormInputCheck';
-import { savePaymentMethod } from '../redux/actions/user/user';
+import CheckoutSteps from '../../components/CheckoutSteps';
+import FormInputCheck from '../../components/Form/FormInputCheck';
+import { savePaymentMethod } from '../../redux/actions/user/user';
 
 interface Values {
   checked: string[];

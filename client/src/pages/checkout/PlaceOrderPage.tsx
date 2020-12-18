@@ -4,12 +4,12 @@ import {
   calculateShippingCost,
   calculateTax,
   calculateTotalPrice,
-} from '../utils/utils';
+} from '../../utils/utils';
 import { Button, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import CartItemsList from '../components/Cart/CartItemsList';
-import CheckoutSteps from '../components/CheckoutSteps';
-import { RootStore } from '../redux/store';
+import CartItemsList from '../../components/Cart/CartItemsList';
+import CheckoutSteps from '../../components/CheckoutSteps';
+import { RootStore } from '../../redux/store';
 
 const PlaceOrderPage = () => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);

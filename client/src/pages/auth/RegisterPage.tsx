@@ -2,48 +2,48 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Button, Col, FormGroup, Row } from 'react-bootstrap';
-import FormContainer from '../components/Form/FormContainer';
+import FormContainer from '../../components/Form/FormContainer';
 import * as Yup from 'yup';
-import FormInput from '../components/Form/FormInput';
+import FormInput from '../../components/Form/FormInput';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { RootStore } from '../redux/store';
-import { login } from '../redux/actions/user/user';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
+import { RootStore } from '../../redux/store';
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
+import { register } from '../../redux/actions/user/user';
 
 interface Values {
   email: string;
   password: string;
+  name: string;
 }
 
-interface LoginPageProps extends RouteComponentProps {}
+interface RegisterPageProps extends RouteComponentProps {}
 
 const initialValues: Values = {
   email: '',
   password: '',
+  name: '',
 };
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().required().min(6),
+  name: Yup.string().required().min(3),
 });
 
-const LoginPage: React.FC<LoginPageProps> = ({ history, location }) => {
+const RegisterPage: React.FC<RegisterPageProps> = ({ history }) => {
   const dispatch = useDispatch();
   const { userDetails, loading, error } = useSelector(
     (state: RootStore) => state.user
   );
 
-  // If user is logged in, checkout => shipping page. Otherwise, go to login
-  const redirect = location.search ? location.search.split('=')[1] : '/';
-
   useEffect(() => {
-    if (userDetails) history.push(redirect);
-  }, [history, userDetails, redirect]);
+    if (userDetails) history.push('/');
+  }, [history, userDetails]);
 
   return (
     <FormContainer>
-      <h4>Login to your account</h4>
+      <h4>Register your account</h4>
       {error && (
         <Message visible={true} variant='danger'>
           {error}
@@ -53,12 +53,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, location }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={({ email, password }) => {
-          dispatch(login(email, password));
+        onSubmit={({ email, password, name }) => {
+          dispatch(register(email, password, name));
         }}
       >
         {({ dirty, isValid }) => (
           <Form>
+            <FormGroup>
+              <Field
+                label='Name'
+                name='name'
+                component={FormInput}
+                placeholder='Enter name'
+              />
+            </FormGroup>
+
             <FormGroup>
               <Field
                 label='Email'
@@ -84,7 +93,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, location }) => {
                 variant='primary'
                 type='submit'
               >
-                {loading ? 'Loading...' : 'Login'}
+                {loading ? 'Loading...' : 'Register'}
               </Button>
             </FormGroup>
           </Form>
@@ -93,11 +102,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ history, location }) => {
 
       <Row className='py-3'>
         <Col>
-          <span>New Customer?</span> <Link to='/register'>Register</Link>
+          <span>Already a customer?</span> <Link to='/login'>Login</Link>
         </Col>
       </Row>
     </FormContainer>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
