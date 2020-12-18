@@ -34,7 +34,7 @@ const CartItemsList: React.FC<CartItemsListProps> = ({ cartItems }) => {
                   <Link to={`/product/${item.product}`}>{item.name}</Link>
                 </Col>
                 <Col md={2}>${(item.price * item.quantity).toFixed(2)}</Col>
-                <Col md={2}>
+                <Col md={3}>
                   <Form.Control
                     as='select'
                     value={item.quantity}

@@ -17,7 +17,7 @@ const CartSubtotal: React.FC<CartSubtotalProps> = ({ cartItems, history }) => {
     <Card>
       <ListGroup variant='flush'>
         <ListGroup.Item>
-          <h2>Subotal ( {showTotalCartItemsQuantity(cartItems)}) items</h2>$
+          <h2>Subotal ({showTotalCartItemsQuantity(cartItems)}) items</h2>$
           {cartItems
             .reduce((acc, item) => acc + item.quantity * item.price, 0)
             .toFixed(2)}
