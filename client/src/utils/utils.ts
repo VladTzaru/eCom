@@ -12,10 +12,7 @@ export const addDataFromReduxStateToLocalStorage = (
 export const addDataToLocalStorage = (key: string, data: any): void =>
   localStorage.setItem(key, JSON.stringify(data));
 
-export const getDataFromLocalStorage = (
-  key: string,
-  fallBackValue: {} | [] | null
-) =>
+export const getDataFromLocalStorage = (key: string, fallBackValue: any) =>
   localStorage.getItem(key)
     ? JSON.parse(localStorage.getItem(key) || '{}')
     : fallBackValue;

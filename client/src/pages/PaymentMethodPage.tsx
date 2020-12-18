@@ -1,35 +1,30 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Button, FormGroup } from 'react-bootstrap';
 import FormContainer from '../components/Form/FormContainer';
 import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootStore } from '../redux/store';
 import CheckoutSteps from '../components/CheckoutSteps';
 import FormInputCheck from '../components/Form/FormInputCheck';
+import { savePaymentMethod } from '../redux/actions/user/user';
 
 interface Values {
-  payPal: boolean;
+  checked: string[];
 }
 
 interface PaymentMethodProps extends RouteComponentProps {}
 
 const initialValues: Values = {
-  payPal: true,
+  checked: ['PayPal'],
 };
 
 const validationSchema = Yup.object({
-  payPal: Yup.boolean().required().oneOf([true], 'payment method is required'),
+  checked: Yup.array().required().length(1, 'payment method is required'),
 });
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
   const dispatch = useDispatch();
-  const { userDetails, loading, error } = useSelector(
-    (state: RootStore) => state.user
-  );
-
-  useEffect(() => {}, []);
 
   return (
     <FormContainer>
@@ -39,8 +34,8 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={({ checked }) => {
+          dispatch(savePaymentMethod(checked[0]));
         }}
       >
         {({ isValid }) => (
@@ -49,7 +44,8 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
               <Field
                 label='PayPal'
                 type='checkbox'
-                name='payPal'
+                name='checked'
+                value='PayPal'
                 component={FormInputCheck}
               />
             </FormGroup>

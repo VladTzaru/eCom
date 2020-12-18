@@ -14,6 +14,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_SAVE_SHIPPING_INFO,
+  USER_SAVE_PAYMENT_METHOD,
 } from '../../constants/user';
 
 export const login = (email: string, password: string) => async (
@@ -127,4 +128,14 @@ export const saveShippingInfo = (info: ShippingI) => (
     payload: info,
   });
   addDataToLocalStorage('shippingInfo', info);
+};
+
+export const savePaymentMethod = (method: string) => (
+  dispatch: Dispatch
+): void => {
+  dispatch({
+    type: USER_SAVE_PAYMENT_METHOD,
+    payload: method,
+  });
+  addDataToLocalStorage('paymentMethod', method);
 };

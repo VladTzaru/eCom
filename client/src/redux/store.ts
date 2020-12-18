@@ -15,6 +15,9 @@ const initialState: InitialStoreStateI = {
   shipping: {
     shippingInfo: getDataFromLocalStorage('shippingInfo', {}),
   },
+  paymentMethod: {
+    selected: getDataFromLocalStorage('paymentMethod', ''),
+  },
 };
 
 const middleware = [thunk];

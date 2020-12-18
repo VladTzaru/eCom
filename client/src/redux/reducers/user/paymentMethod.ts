@@ -3,11 +3,11 @@ import { UserDispatchTypes } from '../../actions/user/userTypes';
 import { USER_SAVE_PAYMENT_METHOD } from '../../constants/user';
 
 export interface PaymentMethodInitialStateI {
-  paymentMethod: string;
+  selected: string;
 }
 
 const initialState: PaymentMethodInitialStateI = {
-  paymentMethod: '',
+  selected: '',
 };
 
 const paymentMethod = (
@@ -18,7 +18,7 @@ const paymentMethod = (
     case USER_SAVE_PAYMENT_METHOD:
       return {
         ...state,
-        paymentMethod: action.payload,
+        selected: action.payload,
       };
 
     default:
