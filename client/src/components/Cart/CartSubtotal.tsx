@@ -2,6 +2,7 @@ import React from 'react';
 import { ListGroup, Button, Card } from 'react-bootstrap';
 import { CartProductI } from '../../customTypes';
 import { History } from 'history';
+import { showTotalCartItemsQuantity } from '../../utils/utils';
 
 interface CartSubtotalProps {
   cartItems: CartProductI[];
@@ -16,11 +17,7 @@ const CartSubtotal: React.FC<CartSubtotalProps> = ({ cartItems, history }) => {
     <Card>
       <ListGroup variant='flush'>
         <ListGroup.Item>
-          <h2>
-            Subotal ({cartItems.reduce((acc, item) => acc + item.quantity, 0)})
-            items
-          </h2>
-          $
+          <h2>Subotal ( {showTotalCartItemsQuantity(cartItems)}) items</h2>$
           {cartItems
             .reduce((acc, item) => acc + item.quantity * item.price, 0)
             .toFixed(2)}

@@ -43,7 +43,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
           <Form>
             <FormGroup>
               <Field
-                label='PayPal'
+                label='PayPal or Credit card'
                 type='checkbox'
                 name='checked'
                 value='PayPal'

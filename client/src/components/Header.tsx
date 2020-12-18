@@ -5,12 +5,13 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap';
 import { RootStore } from '../redux/store';
 import { logout } from '../redux/actions/user/user';
+import { showTotalCartItemsQuantity } from '../utils/utils';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userDetails } = useSelector((state: RootStore) => state.user);
-
+  const { cartItems } = useSelector((state: RootStore) => state.cart);
   const logoutHandler = (): void => {
     dispatch(logout());
     history.push('/');
@@ -47,7 +48,7 @@ const Header: React.FC = () => {
   return (
     <header>
       <Navbar fixed='top' bg='dark' variant='dark' expand='lg' collapseOnSelect>
-        <Container>
+        <Container fluid>
           <LinkContainer to='/'>
             <Navbar.Brand>Tzaru</Navbar.Brand>
           </LinkContainer>
@@ -57,7 +58,7 @@ const Header: React.FC = () => {
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart mr-2' />
-                  Cart
+                  {showTotalCartItemsQuantity(cartItems)}
                 </Nav.Link>
               </LinkContainer>
               {displayDropdown()}
