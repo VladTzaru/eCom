@@ -101,6 +101,8 @@ export const update = (
       type: USER_UPDATE_SUCCESS,
       payload: data,
     });
+
+    addDataToLocalStorage('userDetails', data);
   } catch (error) {
     dispatch({
       type: USER_UPDATE_FAIL,

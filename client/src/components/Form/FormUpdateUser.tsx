@@ -7,6 +7,7 @@ import FormInput from './FormInput';
 import { RootStore } from '../../redux/store';
 import Message from '../Message';
 import Loader from '../Loader';
+import { update } from '../../redux/actions/user/user';
 
 interface Values {
   email: string | undefined;
@@ -27,10 +28,9 @@ const initialValues: Values = {
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().required().min(6),
-  confirmPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'passwords must match'
-  ),
+  confirmPassword: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password'), null], 'passwords must match'),
   name: Yup.string().required().min(3),
 });
 
@@ -47,10 +47,6 @@ const FormUpdateUser: React.FC<FormUpdateUserProps> = () => {
     }
   }, [userDetails]);
 
-  const handleUserUpdate = () => {
-    console.log('update');
-  };
-
   return (
     <>
       <h4>Update your account</h4>
@@ -65,7 +61,10 @@ const FormUpdateUser: React.FC<FormUpdateUserProps> = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={({ email, password, confirmPassword, name }) => {
-          handleUserUpdate();
+          if (email && name && userDetails!.token)
+            dispatch(
+              update(email, password, confirmPassword, name, userDetails!.token)
+            );
         }}
       >
         {({ dirty, isValid }) => (
