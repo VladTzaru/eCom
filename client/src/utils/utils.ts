@@ -21,3 +21,8 @@ export const getDataFromLocalStorage = (key: string, fallBackValue: any) =>
 
 export const showTotalCartItemsQuantity = (items: CartProductI[]): number =>
   items.reduce((acc: number, item: CartProductI) => acc + item.quantity, 0);
+
+export const calculateTotalCartItemsPrice = (items: CartProductI[]): number =>
+  Number(
+    items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
+  );
