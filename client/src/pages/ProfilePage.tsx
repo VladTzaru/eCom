@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Row, Accordion, Button, Card } from 'react-bootstrap';
-
 import { RouteComponentProps } from 'react-router-dom';
 import FormUpdateUser from '../components/Form/FormUpdateUser';
 
