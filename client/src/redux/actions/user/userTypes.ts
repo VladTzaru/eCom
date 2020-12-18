@@ -6,6 +6,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from '../../constants/user';
 
 import { UserI, ErrorT } from '../../../customTypes';
@@ -48,6 +51,23 @@ export interface UserRegisterFail {
   payload: ErrorT<string>;
 }
 
+/////////////////////////////////////////
+// Update
+/////////////////////////////////////////
+export interface UserUpdateRequest {
+  type: typeof USER_UPDATE_REQUEST;
+}
+
+export interface UserUpdateSuccess {
+  type: typeof USER_UPDATE_SUCCESS;
+  payload: UserI;
+}
+
+export interface UserUpdateFail {
+  type: typeof USER_UPDATE_FAIL;
+  payload: ErrorT<string>;
+}
+
 export type UserDispatchTypes =
   | UserLoginRequest
   | UserLoginSuccess
@@ -55,4 +75,7 @@ export type UserDispatchTypes =
   | UserLogout
   | UserRegisterRequest
   | UserRegisterSuccess
-  | UserRegisterFail;
+  | UserRegisterFail
+  | UserUpdateRequest
+  | UserUpdateSuccess
+  | UserUpdateFail;

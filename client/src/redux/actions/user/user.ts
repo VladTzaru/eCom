@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import { UserI } from '../../../customTypes';
 import { errorHandler, addDataToLocalStorage } from '../../../utils/utils';
 import {
   USER_LOGIN_FAIL,
@@ -9,13 +10,10 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from '../../constants/user';
-
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
 
 export const login = (email: string, password: string) => async (
   dispatch: Dispatch
@@ -25,11 +23,10 @@ export const login = (email: string, password: string) => async (
       type: USER_LOGIN_REQUEST,
     });
 
-    const { data } = await axios.post(
-      '/api/users/login',
-      { email, password },
-      config
-    );
+    const { data } = await axios.post<UserI>('/api/users/login', {
+      email,
+      password,
+    });
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -55,7 +52,11 @@ export const register = (
       type: USER_REGISTER_REQUEST,
     });
 
-    const { data } = await axios.post('/api/users', { email, password, name });
+    const { data } = await axios.post<UserI>('/api/users', {
+      email,
+      password,
+      name,
+    });
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -64,6 +65,45 @@ export const register = (
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const update = (
+  email: string,
+  password: string,
+  confirmPassword: string,
+  name: string,
+  token: string
+) => async (dispatch: Dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const payload = { email, password, confirmPassword, name, token };
+
+    const { data } = await axios.put<UserI>(
+      '/api/users/profile',
+      payload,
+      config
+    );
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
       payload: errorHandler(error),
     });
   }
