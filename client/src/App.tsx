@@ -13,6 +13,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
 import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentMethodPage';
 import CartPage from './pages/CartPage';
 
 const App: React.FC = () => {
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/profile' component={ProfilePage} />
             <Route path='/checkout/shipping' component={ShippingPage} />
+            <Route path='/checkout/payment' component={PaymentPage} />
             <Route path='/cart/:id?' component={CartPage} />
           </Switch>
         </Container>
