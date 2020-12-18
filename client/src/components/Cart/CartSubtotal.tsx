@@ -9,7 +9,7 @@ interface CartSubtotalProps {
 }
 const CartSubtotal: React.FC<CartSubtotalProps> = ({ cartItems, history }) => {
   const checkoutHandler = (): void => {
-    history.push('/login?redirect=shipping');
+    history.push('/login?redirect=checkout/shipping');
   };
 
   return (

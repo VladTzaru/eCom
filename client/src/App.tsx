@@ -27,7 +27,7 @@ const App: React.FC = () => {
             <Route path='/register' component={RegisterPage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/profile' component={ProfilePage} />
-            <Route path='/shipping' component={ShippingPage} />
+            <Route path='/checkout/shipping' component={ShippingPage} />
             <Route path='/cart/:id?' component={CartPage} />
           </Switch>
         </Container>

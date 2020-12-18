@@ -56,6 +56,7 @@ const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           dispatch(saveShippingInfo(values));
+          history.push('/checkout/payment');
         }}
       >
         {({ dirty, isValid }) => (
@@ -97,11 +98,7 @@ const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
             </FormGroup>
 
             <FormGroup>
-              <Button
-                disabled={!isValid || !dirty}
-                variant='primary'
-                type='submit'
-              >
+              <Button disabled={!isValid} variant='primary' type='submit'>
                 Next
               </Button>
             </FormGroup>
