@@ -28,15 +28,18 @@ const validationSchema = Yup.object({
   password: Yup.string().required().min(6),
 });
 
-const LoginPage: React.FC<LoginPageProps> = ({ history }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ history, location }) => {
   const dispatch = useDispatch();
   const { userDetails, loading, error } = useSelector(
     (state: RootStore) => state.user
   );
 
+  // If user is logged in, checkout => shipping page. Otherwise, go to login
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+
   useEffect(() => {
-    if (userDetails) history.push('/');
-  }, [history, userDetails]);
+    if (userDetails) history.push(redirect);
+  }, [history, userDetails, redirect]);
 
   return (
     <FormContainer>
