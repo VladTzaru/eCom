@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Button, FormGroup } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -7,12 +7,13 @@ import { History } from 'history';
 import FormInput from '../components/Form/FormInput';
 import FormContainer from '../components/Form/FormContainer';
 import { saveShippingInfo } from '../redux/actions/user/user';
+import { RootStore } from '../redux/store';
 
 interface Values {
-  address: string;
-  city: string;
-  postalCode: string;
-  country: string;
+  address?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
 }
 
 interface ShippingPageProps {
@@ -35,6 +36,16 @@ const validationSchema = Yup.object({
 
 const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
   const dispatch = useDispatch();
+  const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
+
+  useEffect(() => {
+    if (Object.keys(shippingInfo).length !== 0) {
+      initialValues.address = shippingInfo.address;
+      initialValues.city = shippingInfo.city;
+      initialValues.country = shippingInfo.country;
+      initialValues.postalCode = shippingInfo.postalCode;
+    }
+  }, [dispatch, shippingInfo]);
   return (
     <FormContainer>
       <h4>Shipping</h4>

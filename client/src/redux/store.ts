@@ -12,6 +12,9 @@ const initialState: InitialStoreStateI = {
   user: {
     userDetails: getDataFromLocalStorage('userDetails', null),
   },
+  shipping: {
+    shippingInfo: getDataFromLocalStorage('shippingInfo', {}),
+  },
 };
 
 const middleware = [thunk];

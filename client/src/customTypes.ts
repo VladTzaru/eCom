@@ -41,10 +41,10 @@ export interface UserI {
 }
 
 export interface ShippingI {
-  address: string;
-  city: string;
-  postalCode: string;
-  country: string;
+  address?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
 }
 
 export type Nullable<T> = T | null;

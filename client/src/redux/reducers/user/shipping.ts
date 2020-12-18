@@ -8,12 +8,7 @@ export interface ShippingInitialStateI {
 }
 
 const initialState: ShippingInitialStateI = {
-  shippingInfo: {
-    address: '',
-    city: '',
-    postalCode: '',
-    country: '',
-  },
+  shippingInfo: {},
 };
 
 const shipping = (
