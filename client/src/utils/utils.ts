@@ -26,3 +26,7 @@ export const calculateTotalCartItemsPrice = (items: CartProductI[]): number =>
   Number(
     items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
   );
+
+export const calculateShippingCost = (
+  totalProductPrice: number
+): number | string => (totalProductPrice > 100 ? 'Free shipping' : 30);

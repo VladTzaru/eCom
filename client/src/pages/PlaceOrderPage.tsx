@@ -1,5 +1,8 @@
 import React from 'react';
-import { calculateTotalCartItemsPrice } from '../utils/utils';
+import {
+  calculateTotalCartItemsPrice,
+  calculateShippingCost,
+} from '../utils/utils';
 import { Button, Row, Col, Card, Image, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItemsList from '../components/Cart/CartItemsList';
@@ -11,6 +14,10 @@ const PlaceOrderPage = () => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);
   const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
   const { selected } = useSelector((state: RootStore) => state.paymentMethod);
+
+  // Calculations
+  const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
+  const totalShippingCost = calculateShippingCost(totalItemsPrice);
 
   return (
     <>
@@ -53,14 +60,14 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total price of items</Col>
-                  <Col>${calculateTotalCartItemsPrice(cartItems)}</Col>
+                  <Col>${totalItemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>100</Col>
+                  <Col>{totalShippingCost}</Col>
                 </Row>
               </ListGroup.Item>
 
