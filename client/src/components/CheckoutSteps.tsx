@@ -3,10 +3,10 @@ import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 interface CheckoutStepsProps {
-  step1: string;
-  step2: string;
-  step3: string;
-  step4: string;
+  step1?: boolean;
+  step2?: boolean;
+  step3?: boolean;
+  step4?: boolean;
 }
 
 const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
@@ -48,7 +48,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
       </Nav.Item>
 
       <Nav.Item>
-        {step1 ? (
+        {step4 ? (
           <LinkContainer to='/checkout/place-order'>
             <Nav.Link>Place order</Nav.Link>
           </LinkContainer>

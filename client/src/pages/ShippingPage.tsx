@@ -8,6 +8,7 @@ import FormInput from '../components/Form/FormInput';
 import FormContainer from '../components/Form/FormContainer';
 import { saveShippingInfo } from '../redux/actions/user/user';
 import { RootStore } from '../redux/store';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 interface Values {
   address?: string;
@@ -48,7 +49,7 @@ const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
   }, [dispatch, shippingInfo]);
   return (
     <FormContainer>
-      <h4>Shipping</h4>
+      <CheckoutSteps step1 step2 />
 
       <Formik
         enableReinitialize={true}
