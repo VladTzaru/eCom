@@ -30,3 +30,6 @@ export const calculateTotalCartItemsPrice = (items: CartProductI[]): number =>
 export const calculateShippingCost = (
   totalProductPrice: number
 ): number | string => (totalProductPrice > 100 ? 'Free shipping' : 30);
+
+export const calculateTax = (rate: number, totalProductPrice: number): number =>
+  Number(((rate / 100) * totalProductPrice).toFixed(2));

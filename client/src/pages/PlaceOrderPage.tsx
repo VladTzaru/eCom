@@ -2,6 +2,7 @@ import React from 'react';
 import {
   calculateTotalCartItemsPrice,
   calculateShippingCost,
+  calculateTax,
 } from '../utils/utils';
 import { Button, Row, Col, Card, Image, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +19,7 @@ const PlaceOrderPage = () => {
   // Calculations
   const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
   const totalShippingCost = calculateShippingCost(totalItemsPrice);
+  const tax = calculateTax(25, totalItemsPrice);
 
   return (
     <>
@@ -74,7 +76,7 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>100</Col>
+                  <Col>${tax}</Col>
                 </Row>
               </ListGroup.Item>
 
