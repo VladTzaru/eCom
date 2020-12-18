@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Accordion, Button, Card } from 'react-bootstrap';
 
 import { RouteComponentProps } from 'react-router-dom';
 import FormUpdateUser from '../components/Form/FormUpdateUser';
@@ -10,7 +10,20 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   return (
     <Row>
       <Col md={3}>
-        <FormUpdateUser />
+        <Accordion>
+          <Card>
+            <Card.Header>
+              <Accordion.Toggle as={Button} variant='link' eventKey='0'>
+                Update profile
+              </Accordion.Toggle>
+            </Card.Header>
+            <Accordion.Collapse eventKey='0'>
+              <Card.Body>
+                <FormUpdateUser />
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
       </Col>
 
       <Col md={9}>

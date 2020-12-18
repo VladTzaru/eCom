@@ -28,10 +28,9 @@ const initialValues: Values = {
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().required().min(6),
-  confirmPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'passwords must match'
-  ),
+  confirmPassword: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password'), null], 'passwords must match'),
   name: Yup.string().required().min(3),
 });
 
@@ -50,7 +49,6 @@ const FormUpdateUser: React.FC<FormUpdateUserProps> = () => {
 
   return (
     <>
-      <h4>Update your account</h4>
       {error && (
         <Message visible={true} variant='danger'>
           {error}
