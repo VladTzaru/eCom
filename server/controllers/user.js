@@ -85,6 +85,17 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access   Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const { user } = req;
+
+  if (!req.body.confirmPassword) {
+    res.status(400);
+    throw new Error('Confirm password');
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    res.status(400);
+    throw new Error('Passwords must match');
+  }
+
   const foundUser = await User.findById(user._id);
 
   if (foundUser) {

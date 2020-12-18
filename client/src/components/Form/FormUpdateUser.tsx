@@ -28,9 +28,10 @@ const initialValues: Values = {
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().required().min(6),
-  confirmPassword: Yup.string()
-    .required()
-    .oneOf([Yup.ref('password'), null], 'passwords must match'),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref('password'), null],
+    'passwords must match'
+  ),
   name: Yup.string().required().min(3),
 });
 
