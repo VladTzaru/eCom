@@ -3,6 +3,7 @@ import {
   calculateTotalCartItemsPrice,
   calculateShippingCost,
   calculateTax,
+  calculateTotalPrice,
 } from '../utils/utils';
 import { Button, Row, Col, Card, Image, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +12,6 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { RootStore } from '../redux/store';
 
 const PlaceOrderPage = () => {
-  const { product } = useSelector((state: RootStore) => state.productDetails);
   const { cartItems } = useSelector((state: RootStore) => state.cart);
   const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
   const { selected } = useSelector((state: RootStore) => state.paymentMethod);
@@ -19,7 +19,13 @@ const PlaceOrderPage = () => {
   // Calculations
   const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
   const totalShippingCost = calculateShippingCost(totalItemsPrice);
-  const tax = calculateTax(25, totalItemsPrice);
+  const taxRate = 25;
+  const tax = calculateTax(taxRate, totalItemsPrice);
+  const totalPrice = calculateTotalPrice(
+    totalItemsPrice,
+    totalShippingCost,
+    tax
+  );
 
   return (
     <>
@@ -69,13 +75,17 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>{totalShippingCost}</Col>
+                  <Col>
+                    {totalShippingCost === 0
+                      ? 'Free shipping'
+                      : totalShippingCost}
+                  </Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax</Col>
+                  <Col>Tax ({taxRate}%)</Col>
                   <Col>${tax}</Col>
                 </Row>
               </ListGroup.Item>
@@ -83,7 +93,7 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>100</Col>
+                  <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 

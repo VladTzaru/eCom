@@ -27,9 +27,14 @@ export const calculateTotalCartItemsPrice = (items: CartProductI[]): number =>
     items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
   );
 
-export const calculateShippingCost = (
-  totalProductPrice: number
-): number | string => (totalProductPrice > 100 ? 'Free shipping' : 30);
+export const calculateShippingCost = (totalProductPrice: number): number =>
+  totalProductPrice > 100 ? 0 : 30;
 
 export const calculateTax = (rate: number, totalProductPrice: number): number =>
   Number(((rate / 100) * totalProductPrice).toFixed(2));
+
+export const calculateTotalPrice = (
+  totalProductPrice: number,
+  shippingCost: number,
+  tax: number
+): number => Number((totalProductPrice + shippingCost + tax).toFixed(2));
