@@ -1,5 +1,5 @@
-import { UserDispatchTypes } from '../actions/user/userTypes';
-import { UserI, Nullable, ErrorT } from '../../customTypes';
+import { UserDispatchTypes } from '../../actions/user/userTypes';
+import { UserI, Nullable, ErrorT } from '../../../customTypes';
 
 import {
   USER_LOGIN_REQUEST,
@@ -12,7 +12,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-} from '../constants/user';
+} from '../../constants/user';
 
 export interface UserInitialStateI {
   userDetails: Nullable<UserI>;

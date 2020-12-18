@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { UserI } from '../../../customTypes';
+import { ShippingI, UserI } from '../../../customTypes';
 import { errorHandler, addDataToLocalStorage } from '../../../utils/utils';
 import {
   USER_LOGIN_FAIL,
@@ -13,6 +13,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
+  USER_SAVE_SHIPPING_INFO,
 } from '../../constants/user';
 
 export const login = (email: string, password: string) => async (
@@ -116,4 +117,14 @@ export const logout = () => (dispatch: Dispatch): void => {
   dispatch({
     type: USER_LOGOUT,
   });
+};
+
+export const saveShippingInfo = (info: ShippingI) => (
+  dispatch: Dispatch
+): void => {
+  dispatch({
+    type: USER_SAVE_SHIPPING_INFO,
+    payload: info,
+  });
+  addDataToLocalStorage('shippingInfo', info);
 };

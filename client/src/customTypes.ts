@@ -1,7 +1,8 @@
 import { ProductDetailsInitialStateI } from './redux/reducers/product/productDetails';
 import { ProductListInitialStateI } from './redux/reducers/product/productList';
 import { CartInitialStateI } from './redux/reducers/cart';
-import { UserInitialStateI } from './redux/reducers/user';
+import { UserInitialStateI } from './redux/reducers/user/user';
+import { ShippingInitialStateI } from './redux/reducers/user/shipping';
 
 export interface ProductI {
   _id: string;
@@ -39,6 +40,13 @@ export interface UserI {
   token?: string;
 }
 
+export interface ShippingI {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
 export type Nullable<T> = T | null;
 
 export interface InitialStoreStateI {
@@ -46,6 +54,7 @@ export interface InitialStoreStateI {
   productDetails?: ProductDetailsInitialStateI;
   cart?: CartInitialStateI;
   user?: UserInitialStateI;
+  shipping?: ShippingInitialStateI;
 }
 
 export type ErrorT<T> = T | null;

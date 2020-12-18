@@ -4,13 +4,15 @@ import { combineReducers } from 'redux';
 import productList from './product/productList';
 import productDetails from './product/productDetails';
 import cart from './cart';
-import user from './user';
+import user from './user/user';
+import shipping from './user/shipping';
 
 const reducer = combineReducers({
   productList,
   productDetails,
   cart,
   user,
+  shipping,
 });
 
 export default reducer;

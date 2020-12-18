@@ -1,10 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Button, FormGroup } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { History } from 'history';
 import FormInput from '../components/Form/FormInput';
 import FormContainer from '../components/Form/FormContainer';
+import { saveShippingInfo } from '../redux/actions/user/user';
 
 interface Values {
   address: string;
@@ -32,6 +34,7 @@ const validationSchema = Yup.object({
 });
 
 const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
+  const dispatch = useDispatch();
   return (
     <FormContainer>
       <h4>Shipping</h4>
@@ -41,10 +44,10 @@ const ShippingPage: React.FC<ShippingPageProps> = ({ history }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(values);
+          dispatch(saveShippingInfo(values));
         }}
       >
-        {({ dirty, isValid, isSubmitting }) => (
+        {({ dirty, isValid }) => (
           <Form>
             <FormGroup>
               <Field
