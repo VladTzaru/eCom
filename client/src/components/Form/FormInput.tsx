@@ -24,7 +24,9 @@ const FormInput: React.FC<FormInputCustomProps & FieldProps> = ({
         {...props}
       />
       {touched[field.name] && errors[field.name] && (
-        <div style={{ color: 'red' }}>{errors[field.name]}</div>
+        <FormControl.Feedback type='invalid'>
+          {errors[field.name]}
+        </FormControl.Feedback>
       )}
     </>
   );
