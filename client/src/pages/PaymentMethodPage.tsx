@@ -36,6 +36,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ history }) => {
         validationSchema={validationSchema}
         onSubmit={({ checked }) => {
           dispatch(savePaymentMethod(checked[0]));
+          history.push('/checkout/place-order');
         }}
       >
         {({ isValid }) => (
