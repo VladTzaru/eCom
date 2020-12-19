@@ -30,6 +30,8 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     totalPrice: order?.totalPrice,
     shippingPrice: order?.shippingPrice,
     orderItems: order?.orderItems,
+    payedAt: order?.payedAt,
+    deliveredAt: order?.deliveredAt,
   };
 
   return loading ? (
@@ -60,7 +62,9 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
                 <span>{order?.shippingAddress?.country}</span>
               </p>
               {order?.isDelivered ? (
-                <Message variant='success'>Delivered</Message>
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
               ) : (
                 <Message heading='Delivery status'>Not delivered</Message>
               )}
@@ -73,7 +77,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
                 {order?.paymentMethod}
               </p>
               {order?.isPayed ? (
-                <Message variant='success'>Payed</Message>
+                <Message variant='success'>Payed on {order.payedAt}</Message>
               ) : (
                 <Message heading='Payment status' variant='danger'>
                   Not payed

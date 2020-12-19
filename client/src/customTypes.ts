@@ -58,6 +58,8 @@ export interface OrderI {
   paymentMethod?: string;
   totalPrice?: number;
   taxPrice?: number;
+  payedAt?: Date;
+  deliveredAt?: Date;
   _id?: string;
 }
 
