@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CartOrderSummary from '../components/Cart/CartOrderSummary';
 import UserAddress from '../components/User/UserAddress';
+import UserPaymentMethod from '../components/User/UserPaymentMethod';
 
 interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -68,17 +69,12 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
 
             <ListGroup.Item>
               <h2>Payment method</h2>
-              <p>
-                <strong>Selected: </strong>
-                {order.paymentMethod}
-              </p>
-              {order.isPayed ? (
-                <Message variant='success'>Payed on {order.payedAt}</Message>
-              ) : (
-                <Message heading='Payment status' variant='danger'>
-                  Not payed
-                </Message>
-              )}
+              <UserPaymentMethod
+                showNotification
+                payedAt={order.payedAt}
+                isPayed={order.isPayed}
+                paymentMethod={order.paymentMethod}
+              />
             </ListGroup.Item>
 
             <ListGroup.Item>

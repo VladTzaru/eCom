@@ -19,7 +19,9 @@ const UserAddress: React.FC<UserAdressProps> = ({
     isDelivered ? (
       <Message variant='success'>Delivered on {deliveredAt}</Message>
     ) : (
-      <Message heading='Delivery status'>Not delivered</Message>
+      <Message variant='danger' heading='Delivery status'>
+        Not delivered
+      </Message>
     );
 
   return (

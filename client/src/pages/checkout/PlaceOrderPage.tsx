@@ -14,6 +14,7 @@ import { RootStore } from '../../redux/store';
 import { MatchParamsI, OrderI } from '../../customTypes';
 import { RouteComponentProps } from 'react-router-dom';
 import UserAddress from '../../components/User/UserAddress';
+import UserPaymentMethod from '../../components/User/UserPaymentMethod';
 
 interface PlaceOrderPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -21,7 +22,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ history }) => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);
   const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
   const { selected } = useSelector((state: RootStore) => state.paymentMethod);
-  const { success, error, order } = useSelector(
+  const { success, order } = useSelector(
     (state: RootStore) => state.createdOrder
   );
 
@@ -70,10 +71,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ history }) => {
 
             <ListGroup.Item>
               <h2>Payment method</h2>
-              <p>
-                <strong>Selected: </strong>
-                {selected}
-              </p>
+              <UserPaymentMethod paymentMethod={selected} />
             </ListGroup.Item>
 
             <ListGroup.Item>
