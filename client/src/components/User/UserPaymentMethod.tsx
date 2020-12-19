@@ -18,7 +18,7 @@ const UserPaymentMethod: React.FC<UserPaymentMethodProps> = ({
     isPayed ? (
       <Message variant='success'>Payed on {payedAt}</Message>
     ) : (
-      <Message variant='danger' heading='Delivery status'>
+      <Message variant='danger' heading='Payment status'>
         Not payed
       </Message>
     );
