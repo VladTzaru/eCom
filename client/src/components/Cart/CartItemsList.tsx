@@ -8,9 +8,13 @@ import { Row, Col, ListGroup, Button, Form, Image } from 'react-bootstrap';
 
 interface CartItemsListProps {
   cartItems?: CartProductI[];
+  unhideControls?: boolean;
 }
 
-const CartItemsList: React.FC<CartItemsListProps> = ({ cartItems }) => {
+const CartItemsList: React.FC<CartItemsListProps> = ({
+  unhideControls = false,
+  cartItems,
+}) => {
   const dispatch = useDispatch();
 
   const removeFromCartHandler = (id: string): void => {
@@ -31,37 +35,50 @@ const CartItemsList: React.FC<CartItemsListProps> = ({ cartItems }) => {
                   <Col md={2}>
                     <Image fluid rounded alt={item.name} src={item.image} />
                   </Col>
-                  <Col md={3}>
+                  <Col md={!unhideControls ? 5 : 3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
+
+                  {!unhideControls && (
+                    <Col md={3}>
+                      {item.quantity} units * {item.price}
+                    </Col>
+                  )}
+
                   <Col md={2}>${(item.price * item.quantity).toFixed(2)}</Col>
-                  <Col md={3}>
-                    <Form.Control
-                      as='select'
-                      value={item.quantity}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {/* Turn countInStock into an iterable and render options */}
-                      {[...Array(item.countInStock).keys()].map((n) => (
-                        <option key={n + 1} value={n + 1}>
-                          {n + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Col>
-                  <Col md={2}>
-                    <Button
-                      type='button'
-                      variant='light'
-                      onClick={() => removeFromCartHandler(item.product)}
-                    >
-                      <i className='fas fa-trash' />
-                    </Button>
-                  </Col>
+
+                  {unhideControls && (
+                    <Col md={3}>
+                      <Form.Control
+                        disabled={!unhideControls}
+                        as='select'
+                        value={item.quantity}
+                        onChange={(e) =>
+                          dispatch(
+                            addToCart(item.product, Number(e.target.value))
+                          )
+                        }
+                      >
+                        {/* Turn countInStock into an iterable and render options */}
+                        {[...Array(item.countInStock).keys()].map((n) => (
+                          <option key={n + 1} value={n + 1}>
+                            {n + 1}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </Col>
+                  )}
+                  {unhideControls && (
+                    <Col md={2}>
+                      <Button
+                        type='button'
+                        variant='light'
+                        onClick={() => removeFromCartHandler(item.product)}
+                      >
+                        <i className='fas fa-trash' />
+                      </Button>
+                    </Col>
+                  )}
                 </Row>
               </ListGroup.Item>
             ))}

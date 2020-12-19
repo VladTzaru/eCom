@@ -76,7 +76,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ history }) => {
 
             <ListGroup.Item>
               <h2>Order items</h2>
-              <CartItemsList cartItems={cartItems} />
+              <CartItemsList unhideControls cartItems={cartItems} />
             </ListGroup.Item>
           </ListGroup>
         </Col>
