@@ -20,7 +20,10 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   );
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, orderId]);
 
   const orderDetails: OrderI = {
