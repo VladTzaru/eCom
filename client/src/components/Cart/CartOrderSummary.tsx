@@ -15,24 +15,26 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
 }) => {
   const dispatch = useDispatch();
   const {
-    cartItems,
+    orderItems,
     paymentMethod,
     totalItemsPrice,
-    totalShippingCost,
+    shippingPrice,
     shippingAddress,
-    tax,
+    taxPrice,
     totalPrice,
   } = orderDetails;
 
   const order: OrderI = {
-    cartItems,
+    orderItems,
     shippingAddress,
     paymentMethod,
     totalItemsPrice,
-    tax,
-    totalShippingCost,
+    taxPrice,
+    shippingPrice,
     totalPrice,
   };
+
+  console.log(order);
 
   const handlePlaceOrder = () => {
     dispatch(createOrder(order));
@@ -55,16 +57,14 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
         <ListGroup.Item>
           <Row>
             <Col>Shipping</Col>
-            <Col>
-              {totalShippingCost === 0 ? 'Free shipping' : totalShippingCost}
-            </Col>
+            <Col>{shippingPrice === 0 ? 'Free shipping' : shippingPrice}</Col>
           </Row>
         </ListGroup.Item>
 
         <ListGroup.Item>
           <Row>
             <Col>Tax ({taxRate}%)</Col>
-            <Col>${tax}</Col>
+            <Col>${taxPrice}</Col>
           </Row>
         </ListGroup.Item>
 
@@ -80,7 +80,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
             onClick={handlePlaceOrder}
             type='buton'
             className='btn-block'
-            disabled={cartItems.length === 0}
+            disabled={orderItems.length === 0}
           >
             Place order
           </Button>

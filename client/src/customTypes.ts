@@ -49,13 +49,13 @@ export interface ShippingI {
 }
 
 export interface OrderI {
-  cartItems: CartProductI[];
+  orderItems: CartProductI[];
   totalItemsPrice: number;
   shippingAddress: ShippingI;
-  totalShippingCost: number;
+  shippingPrice: number;
   paymentMethod: string;
   totalPrice: number;
-  tax: number;
+  taxPrice: number;
 }
 
 export type Nullable<T> = T | null;

@@ -20,28 +20,28 @@ const PlaceOrderPage = () => {
 
   // Calculations
   const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
-  const totalShippingCost = calculateShippingCost(totalItemsPrice);
+  const shippingPrice = calculateShippingCost(totalItemsPrice);
   const taxRate = 25;
-  const tax = calculateTax(taxRate, totalItemsPrice);
+  const taxPrice = calculateTax(taxRate, totalItemsPrice);
   const totalPrice = calculateTotalPrice(
     totalItemsPrice,
-    totalShippingCost,
-    tax
+    shippingPrice,
+    taxPrice
   );
 
   const orderDetails: OrderI = {
     paymentMethod: selected,
-    tax,
+    taxPrice,
     totalItemsPrice,
     totalPrice,
-    totalShippingCost,
+    shippingPrice,
     shippingAddress: {
       address: shippingInfo.address,
       city: shippingInfo.city,
       postalCode: shippingInfo.postalCode,
       country: shippingInfo.country,
     },
-    cartItems,
+    orderItems: cartItems,
   };
 
   return (
