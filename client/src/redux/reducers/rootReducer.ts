@@ -7,7 +7,8 @@ import cart from './cart';
 import user from './user/user';
 import shipping from './user/shipping';
 import paymentMethod from './user/paymentMethod';
-import createdOrder from './order';
+import createdOrder from './order/order';
+import orderDetails from './order/orderDetails';
 
 const reducer = combineReducers({
   productList,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   shipping,
   paymentMethod,
   createdOrder,
+  orderDetails,
 });
 
 export default reducer;

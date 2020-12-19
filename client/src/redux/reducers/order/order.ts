@@ -2,10 +2,10 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAIL,
-} from '../constants/order';
+} from '../../constants/order';
 
-import { OrderDispatchTypes } from '../actions/order/orderTypes';
-import { OrderI, ErrorT, Nullable } from '../../customTypes';
+import { OrderDispatchTypes } from '../../actions/order/orderTypes';
+import { OrderI, ErrorT, Nullable } from '../../../customTypes';
 
 export interface CreateOrderInitialStateI {
   order: Nullable<OrderI>;
