@@ -6,6 +6,7 @@ import { notFound, errorHandler } from './middleware/error.js';
 // Import Routes
 import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
+import orderRoutes from './routes/order.js';
 
 // Config
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 // Mount routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Error handling
 app.use(notFound);

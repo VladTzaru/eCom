@@ -6,7 +6,7 @@ import {
   calculateTotalPrice,
 } from '../../utils/utils';
 import { Row, Col, ListGroup } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CartItemsList from '../../components/Cart/CartItemsList';
 import CartOrderSummary from '../../components/Cart/CartOrderSummary';
 import CheckoutSteps from '../../components/CheckoutSteps';
