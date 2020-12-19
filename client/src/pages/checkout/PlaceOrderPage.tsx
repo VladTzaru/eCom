@@ -13,6 +13,7 @@ import CheckoutSteps from '../../components/CheckoutSteps';
 import { RootStore } from '../../redux/store';
 import { MatchParamsI, OrderI } from '../../customTypes';
 import { RouteComponentProps } from 'react-router-dom';
+import UserAddress from '../../components/User/UserAddress';
 
 interface PlaceOrderPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -64,13 +65,7 @@ const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ history }) => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p>
-                <strong>Full address: </strong>{' '}
-                <span>{shippingInfo.address}</span>,{' '}
-                <span>{shippingInfo.city}</span>,{' '}
-                <span>{shippingInfo.postalCode}</span>,{' '}
-                <span>{shippingInfo.country}</span>
-              </p>
+              <UserAddress shippingAddress={shippingInfo} />
             </ListGroup.Item>
 
             <ListGroup.Item>

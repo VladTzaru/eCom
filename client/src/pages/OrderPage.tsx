@@ -9,6 +9,7 @@ import { getOrderDetails } from '../redux/actions/order/order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CartOrderSummary from '../components/Cart/CartOrderSummary';
+import UserAddress from '../components/User/UserAddress';
 
 interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -37,13 +38,13 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     deliveredAt: order?.deliveredAt,
   };
 
-  return loading ? (
+  return loading || !order ? (
     <Loader />
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order: {order?._id}</h1>
+      <h1>Order: {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
@@ -51,35 +52,27 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Name: </strong>
-                <span>{order?.user.name}</span>
+                <span>{order.user.name}</span>
               </p>
               <p>
-                <strong>Email: </strong> <span>{order?.user.email}</span>
+                <strong>Email: </strong> <span>{order.user.email}</span>
               </p>
 
-              <p>
-                <strong>Full address: </strong>{' '}
-                <span>{order?.shippingAddress?.address}</span>,{' '}
-                <span>{order?.shippingAddress?.city}</span>,{' '}
-                <span>{order?.shippingAddress?.postalCode}</span>,{' '}
-                <span>{order?.shippingAddress?.country}</span>
-              </p>
-              {order?.isDelivered ? (
-                <Message variant='success'>
-                  Delivered on {order.deliveredAt}
-                </Message>
-              ) : (
-                <Message heading='Delivery status'>Not delivered</Message>
-              )}
+              <UserAddress
+                showNotification
+                deliveredAt={order.deliveredAt}
+                isDelivered={order.isDelivered}
+                shippingAddress={order.shippingAddress}
+              />
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Payment method</h2>
               <p>
                 <strong>Selected: </strong>
-                {order?.paymentMethod}
+                {order.paymentMethod}
               </p>
-              {order?.isPayed ? (
+              {order.isPayed ? (
                 <Message variant='success'>Payed on {order.payedAt}</Message>
               ) : (
                 <Message heading='Payment status' variant='danger'>
@@ -90,7 +83,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
 
             <ListGroup.Item>
               <h2>Order items</h2>
-              <CartItemsList cartItems={order?.orderItems} />
+              <CartItemsList cartItems={order.orderItems} />
             </ListGroup.Item>
           </ListGroup>
         </Col>
