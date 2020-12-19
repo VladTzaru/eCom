@@ -56,4 +56,31 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
-export { createNewOrder, getOrderById };
+// @desc     Update order payment status to paid
+// @route    PUT /api/orders/:id/pay
+// @access   Private
+const updateOrderPaymentStatusToPaid = asyncHandler(async (req, res) => {
+  const { id, status, update_time } = req.body;
+
+  // Get order and attach user name and email to it
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isPayed = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
+      id,
+      status,
+      update_time,
+      email_address: req.body.payer.email_address,
+    };
+
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(402);
+    throw new Error('Could not finalize the payment. Please try again');
+  }
+});
+
+export { createNewOrder, getOrderById, updateOrderPaymentStatusToPaid };
