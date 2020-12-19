@@ -26,7 +26,7 @@ const CartPage: React.FC<CartPageProps> = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         <h1>Shopping cart</h1>
-        <CartItemsList cartItems={cartItems} />
+        <CartItemsList unhideControls cartItems={cartItems} />
       </Col>
 
       <Col md={4}>
