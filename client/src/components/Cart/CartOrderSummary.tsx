@@ -7,11 +7,13 @@ import { createOrder } from '../../redux/actions/order/order';
 interface CartOrderSummaryProps {
   orderDetails: OrderI;
   taxRate?: number;
+  switchToPaymentButton?: boolean;
 }
 
 const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   orderDetails,
   taxRate,
+  switchToPaymentButton = false,
 }) => {
   const dispatch = useDispatch();
   const {
@@ -36,6 +38,10 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
 
   const handlePlaceOrder = () => {
     dispatch(createOrder(order));
+  };
+
+  const handlePurchase = () => {
+    console.log('BUY');
   };
 
   return (
@@ -73,16 +79,31 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
           </Row>
         </ListGroup.Item>
 
-        <ListGroup.Item>
-          <Button
-            onClick={handlePlaceOrder}
-            type='buton'
-            className='btn-block'
-            disabled={orderItems?.length === 0}
-          >
-            Place order
-          </Button>
-        </ListGroup.Item>
+        {switchToPaymentButton ? (
+          <ListGroup.Item>
+            <Button
+              onClick={handlePurchase}
+              type='buton'
+              variant='success'
+              className='btn-block'
+              disabled={orderItems?.length === 0}
+            >
+              Purchase
+            </Button>
+          </ListGroup.Item>
+        ) : (
+          <ListGroup.Item>
+            <Button
+              onClick={handlePlaceOrder}
+              type='buton'
+              variant='primary'
+              className='btn-block'
+              disabled={orderItems?.length === 0}
+            >
+              Place order
+            </Button>
+          </ListGroup.Item>
+        )}
       </ListGroup>
     </Card>
   );

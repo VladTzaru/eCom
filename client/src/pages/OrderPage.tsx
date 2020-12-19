@@ -84,7 +84,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
           </ListGroup>
         </Col>
         <Col md={4}>
-          <CartOrderSummary orderDetails={orderDetails} />
+          <CartOrderSummary switchToPaymentButton orderDetails={orderDetails} />
         </Col>
       </Row>
     </>
