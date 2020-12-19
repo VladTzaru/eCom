@@ -4,9 +4,11 @@ import {
   ORDER_CREATE_FAIL,
 } from '../constants/order';
 
+import { OrderDispatchTypes } from '../actions/order/orderTypes';
+
 const initialState = {};
 
-const createOrder = (state = initialState, action) => {
+const createdOrder = (state = initialState, action: OrderDispatchTypes) => {
   switch (action.type) {
     case ORDER_CREATE_REQUEST:
       return {
@@ -34,4 +36,4 @@ const createOrder = (state = initialState, action) => {
   }
 };
 
-export default createOrder;
+export default createdOrder;

@@ -1,20 +1,9 @@
 import React from 'react';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { CartProductI, ShippingI } from '../../customTypes';
+import { OrderDataI } from '../../customTypes';
 
 interface CartOrderSummaryProps {
   orderDetails: OrderDataI;
-}
-
-export interface OrderDataI {
-  cartItems: CartProductI[];
-  totalItemsPrice: number;
-  shippingAddress: ShippingI;
-  totalShippingCost: number;
-  paymentMethod: string;
-  totalPrice: number;
-  taxRate: number;
-  tax: number;
 }
 
 const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({

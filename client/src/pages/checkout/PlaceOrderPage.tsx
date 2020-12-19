@@ -11,7 +11,7 @@ import CartItemsList from '../../components/Cart/CartItemsList';
 import CartOrderSummary from '../../components/Cart/CartOrderSummary';
 import CheckoutSteps from '../../components/CheckoutSteps';
 import { RootStore } from '../../redux/store';
-import { OrderDataI } from '../../components/Cart/CartOrderSummary';
+import { OrderDataI } from '../../customTypes';
 
 const PlaceOrderPage = () => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);

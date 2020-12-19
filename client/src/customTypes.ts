@@ -48,6 +48,17 @@ export interface ShippingI {
   country?: string;
 }
 
+export interface OrderDataI {
+  cartItems: CartProductI[];
+  totalItemsPrice: number;
+  shippingAddress: ShippingI;
+  totalShippingCost: number;
+  paymentMethod: string;
+  totalPrice: number;
+  taxRate: number;
+  tax: number;
+}
+
 export type Nullable<T> = T | null;
 
 export interface InitialStoreStateI {
