@@ -1,16 +1,49 @@
 import React from 'react';
-
+import {
+  calculateTotalCartItemsPrice,
+  calculateShippingCost,
+  calculateTax,
+  calculateTotalPrice,
+} from '../../utils/utils';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItemsList from '../../components/Cart/CartItemsList';
 import CartOrderSummary from '../../components/Cart/CartOrderSummary';
 import CheckoutSteps from '../../components/CheckoutSteps';
 import { RootStore } from '../../redux/store';
+import { OrderDataI } from '../../components/Cart/CartOrderSummary';
 
 const PlaceOrderPage = () => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);
   const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
   const { selected } = useSelector((state: RootStore) => state.paymentMethod);
+
+  // Calculations
+  const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
+  const totalShippingCost = calculateShippingCost(totalItemsPrice);
+  const taxRate = 25;
+  const tax = calculateTax(taxRate, totalItemsPrice);
+  const totalPrice = calculateTotalPrice(
+    totalItemsPrice,
+    totalShippingCost,
+    tax
+  );
+
+  const orderDetails: OrderDataI = {
+    paymentMethod: selected,
+    tax,
+    taxRate,
+    totalItemsPrice,
+    totalPrice,
+    totalShippingCost,
+    shippingAddress: {
+      address: shippingInfo.address,
+      city: shippingInfo.city,
+      postalCode: shippingInfo.postalCode,
+      country: shippingInfo.country,
+    },
+    cartItems,
+  };
 
   return (
     <>
@@ -45,7 +78,7 @@ const PlaceOrderPage = () => {
         </Col>
 
         <Col md={4}>
-          <CartOrderSummary cartItems={cartItems} />
+          <CartOrderSummary orderDetails={orderDetails} />
         </Col>
       </Row>
     </>

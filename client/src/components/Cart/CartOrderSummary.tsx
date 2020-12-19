@@ -1,29 +1,34 @@
 import React from 'react';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { CartProductI } from '../../customTypes';
-import {
-  calculateTotalCartItemsPrice,
-  calculateShippingCost,
-  calculateTax,
-  calculateTotalPrice,
-} from '../../utils/utils';
+import { CartProductI, ShippingI } from '../../customTypes';
 
 interface CartOrderSummaryProps {
-  cartItems: CartProductI[];
+  orderDetails: OrderDataI;
 }
 
-const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({ cartItems }) => {
-  // Calculations
-  const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);
-  const totalShippingCost = calculateShippingCost(totalItemsPrice);
-  const taxRate = 25;
-  const tax = calculateTax(taxRate, totalItemsPrice);
-  const totalPrice = calculateTotalPrice(
+export interface OrderDataI {
+  cartItems: CartProductI[];
+  totalItemsPrice: number;
+  shippingAddress: ShippingI;
+  totalShippingCost: number;
+  paymentMethod: string;
+  totalPrice: number;
+  taxRate: number;
+  tax: number;
+}
+
+const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
+  orderDetails,
+}) => {
+  const {
+    cartItems,
     totalItemsPrice,
     totalShippingCost,
-    tax
-  );
-
+    shippingAddress,
+    taxRate,
+    tax,
+    totalPrice,
+  } = orderDetails;
   return (
     <Card>
       <ListGroup variant='flush'>
