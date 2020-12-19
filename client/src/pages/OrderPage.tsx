@@ -13,7 +13,7 @@ interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
-  const { loading, error, orderItems, shippingAddress } = useSelector(
+  const { loading, error, order } = useSelector(
     (state: RootStore) => state.orderDetails
   );
 
@@ -26,7 +26,9 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <></>
+    <>
+      <h1>Order Details</h1>
+    </>
   );
 };
 
