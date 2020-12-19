@@ -39,13 +39,13 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     deliveredAt: order?.deliveredAt,
   };
 
-  return loading || !order ? (
+  return loading ? (
     <Loader />
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order: {order._id}</h1>
+      <h1>Order: {order?._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
@@ -53,17 +53,17 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Name: </strong>
-                <span>{order.user.name}</span>
+                <span>{order?.user.name}</span>
               </p>
               <p>
-                <strong>Email: </strong> <span>{order.user.email}</span>
+                <strong>Email: </strong> <span>{order?.user.email}</span>
               </p>
 
               <UserAddress
                 showNotification
-                deliveredAt={order.deliveredAt}
-                isDelivered={order.isDelivered}
-                shippingAddress={order.shippingAddress}
+                deliveredAt={order?.deliveredAt}
+                isDelivered={order?.isDelivered}
+                shippingAddress={order?.shippingAddress}
               />
             </ListGroup.Item>
 
@@ -71,15 +71,15 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
               <h2>Payment method</h2>
               <UserPaymentMethod
                 showNotification
-                payedAt={order.payedAt}
-                isPayed={order.isPayed}
-                paymentMethod={order.paymentMethod}
+                payedAt={order?.payedAt}
+                isPayed={order?.isPayed}
+                paymentMethod={order?.paymentMethod}
               />
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Order items</h2>
-              <CartItemsList cartItems={order.orderItems} />
+              <CartItemsList cartItems={order?.orderItems} />
             </ListGroup.Item>
           </ListGroup>
         </Col>
