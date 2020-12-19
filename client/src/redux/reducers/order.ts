@@ -5,8 +5,20 @@ import {
 } from '../constants/order';
 
 import { OrderDispatchTypes } from '../actions/order/orderTypes';
+import { OrderI, ErrorT, Nullable } from '../../customTypes';
 
-const initialState = {};
+export interface CreateOrderInitialStateI {
+  order: Nullable<OrderI>;
+  loading: boolean;
+  success: boolean;
+  error?: ErrorT<string>;
+}
+
+const initialState: CreateOrderInitialStateI = {
+  order: null,
+  success: false,
+  loading: false,
+};
 
 const createdOrder = (state = initialState, action: OrderDispatchTypes) => {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   calculateTotalCartItemsPrice,
   calculateShippingCost,
@@ -11,12 +11,24 @@ import CartItemsList from '../../components/Cart/CartItemsList';
 import CartOrderSummary from '../../components/Cart/CartOrderSummary';
 import CheckoutSteps from '../../components/CheckoutSteps';
 import { RootStore } from '../../redux/store';
-import { OrderI } from '../../customTypes';
+import { MatchParamsI, OrderI } from '../../customTypes';
+import { RouteComponentProps } from 'react-router-dom';
 
-const PlaceOrderPage = () => {
+interface PlaceOrderPageProps extends RouteComponentProps<MatchParamsI> {}
+
+const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ history }) => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);
   const { shippingInfo } = useSelector((state: RootStore) => state.shipping);
   const { selected } = useSelector((state: RootStore) => state.paymentMethod);
+  const { success, error, order } = useSelector(
+    (state: RootStore) => state.createdOrder
+  );
+
+  useEffect(() => {
+    if (order && success) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [success, history, order]);
 
   // Calculations
   const totalItemsPrice = calculateTotalCartItemsPrice(cartItems);

@@ -34,8 +34,6 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
     totalPrice,
   };
 
-  console.log(order);
-
   const handlePlaceOrder = () => {
     dispatch(createOrder(order));
   };

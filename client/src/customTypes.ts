@@ -4,6 +4,7 @@ import { CartInitialStateI } from './redux/reducers/cart';
 import { UserInitialStateI } from './redux/reducers/user/user';
 import { ShippingInitialStateI } from './redux/reducers/user/shipping';
 import { PaymentMethodInitialStateI } from './redux/reducers/user/paymentMethod';
+import { CreateOrderInitialStateI } from './redux/reducers/order';
 
 export interface ProductI {
   _id: string;
@@ -56,6 +57,7 @@ export interface OrderI {
   paymentMethod: string;
   totalPrice: number;
   taxPrice: number;
+  _id?: string;
 }
 
 export type Nullable<T> = T | null;
@@ -67,6 +69,7 @@ export interface InitialStoreStateI {
   user?: UserInitialStateI;
   shipping?: ShippingInitialStateI;
   paymentMethod?: PaymentMethodInitialStateI;
+  createdOrder?: CreateOrderInitialStateI;
 }
 
 export type ErrorT<T> = T | null;
