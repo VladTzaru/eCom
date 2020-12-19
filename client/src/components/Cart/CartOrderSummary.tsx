@@ -6,7 +6,7 @@ import { createOrder } from '../../redux/actions/order/order';
 
 interface CartOrderSummaryProps {
   orderDetails: OrderI;
-  taxRate: number;
+  taxRate?: number;
 }
 
 const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
@@ -17,9 +17,9 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   const {
     orderItems,
     paymentMethod,
+    shippingAddress,
     totalItemsPrice,
     shippingPrice,
-    shippingAddress,
     taxPrice,
     totalPrice,
   } = orderDetails;
@@ -78,7 +78,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
             onClick={handlePlaceOrder}
             type='buton'
             className='btn-block'
-            disabled={orderItems.length === 0}
+            disabled={orderItems?.length === 0}
           >
             Place order
           </Button>

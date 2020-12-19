@@ -5,16 +5,16 @@ import {
 } from '../../constants/order';
 
 import { OrderDispatchTypes } from '../../actions/order/orderTypes';
-import { ErrorT } from '../../../customTypes';
+import { ErrorT, OrderDetailsI, Nullable } from '../../../customTypes';
 
 export interface OrderDetailsInitialStateI {
-  order: object;
+  order: Nullable<OrderDetailsI>;
   loading?: boolean;
   error?: ErrorT<string>;
 }
 
 const initialState: OrderDetailsInitialStateI = {
-  order: {},
+  order: null,
 };
 
 const orderDetails = (state = initialState, action: OrderDispatchTypes) => {

@@ -7,7 +7,7 @@ import { CartProductI } from '../../customTypes';
 import { Row, Col, ListGroup, Button, Form, Image } from 'react-bootstrap';
 
 interface CartItemsListProps {
-  cartItems: CartProductI[];
+  cartItems?: CartProductI[];
 }
 
 const CartItemsList: React.FC<CartItemsListProps> = ({ cartItems }) => {
@@ -18,50 +18,53 @@ const CartItemsList: React.FC<CartItemsListProps> = ({ cartItems }) => {
   };
   return (
     <>
-      {cartItems.length === 0 ? (
+      {cartItems && cartItems.length === 0 ? (
         <Message heading='Your cart is empty'>
           <Link to='/'>Go to Home</Link>
         </Message>
       ) : (
         <ListGroup variant='flush'>
-          {cartItems.map((item) => (
-            <ListGroup.Item key={item.product}>
-              <Row>
-                <Col md={2}>
-                  <Image fluid rounded alt={item.name} src={item.image} />
-                </Col>
-                <Col md={3}>
-                  <Link to={`/product/${item.product}`}>{item.name}</Link>
-                </Col>
-                <Col md={2}>${(item.price * item.quantity).toFixed(2)}</Col>
-                <Col md={3}>
-                  <Form.Control
-                    as='select'
-                    value={item.quantity}
-                    onChange={(e) =>
-                      dispatch(addToCart(item.product, Number(e.target.value)))
-                    }
-                  >
-                    {/* Turn countInStock into an iterable and render options */}
-                    {[...Array(item.countInStock).keys()].map((n) => (
-                      <option key={n + 1} value={n + 1}>
-                        {n + 1}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Col>
-                <Col md={2}>
-                  <Button
-                    type='button'
-                    variant='light'
-                    onClick={() => removeFromCartHandler(item.product)}
-                  >
-                    <i className='fas fa-trash' />
-                  </Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          ))}
+          {cartItems &&
+            cartItems.map((item) => (
+              <ListGroup.Item key={item.product}>
+                <Row>
+                  <Col md={2}>
+                    <Image fluid rounded alt={item.name} src={item.image} />
+                  </Col>
+                  <Col md={3}>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  </Col>
+                  <Col md={2}>${(item.price * item.quantity).toFixed(2)}</Col>
+                  <Col md={3}>
+                    <Form.Control
+                      as='select'
+                      value={item.quantity}
+                      onChange={(e) =>
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        )
+                      }
+                    >
+                      {/* Turn countInStock into an iterable and render options */}
+                      {[...Array(item.countInStock).keys()].map((n) => (
+                        <option key={n + 1} value={n + 1}>
+                          {n + 1}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      type='button'
+                      variant='light'
+                      onClick={() => removeFromCartHandler(item.product)}
+                    >
+                      <i className='fas fa-trash' />
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
         </ListGroup>
       )}
     </>

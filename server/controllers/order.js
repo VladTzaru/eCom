@@ -5,11 +5,13 @@ import Order from '../models/order.js';
 // @route    POST /api/orders
 // @access   Private
 const createNewOrder = asyncHandler(async (req, res) => {
+  console.log(req.body.totalItemsPrice);
   const {
     orderItems,
     shippingAddress,
     paymentMethod,
     itemsPrice,
+    totalItemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
@@ -25,6 +27,7 @@ const createNewOrder = asyncHandler(async (req, res) => {
       shippingAddress,
       paymentMethod,
       itemsPrice,
+      totalItemsPrice,
       taxPrice,
       shippingPrice,
       totalPrice,

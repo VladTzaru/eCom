@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/store';
@@ -7,6 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { getOrderDetails } from '../redux/actions/order/order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import CartOrderSummary from '../components/Cart/CartOrderSummary';
 
 interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 
@@ -21,13 +23,54 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch]);
 
+  const orderDetails = {
+    paymentMethod: order?.paymentMethod,
+    taxPrice: order?.taxPrice,
+    totalItemsPrice: order?.totalItemsPrice,
+    totalPrice: order?.totalPrice,
+    shippingPrice: order?.shippingPrice,
+    orderItems: order?.orderItems,
+  };
+
   return loading ? (
     <Loader />
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order Details</h1>
+      <h1>Order: {order?._id}</h1>
+      <Row>
+        <Col md={8}>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>Shipping</h2>
+              <p>
+                <strong>Full address: </strong>{' '}
+                <span>{order?.shippingAddress?.address}</span>,{' '}
+                <span>{order?.shippingAddress?.city}</span>,{' '}
+                <span>{order?.shippingAddress?.postalCode}</span>,{' '}
+                <span>{order?.shippingAddress?.country}</span>
+              </p>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <h2>Payment method</h2>
+              <p>
+                <strong>Selected: </strong>
+                {order?.paymentMethod}
+              </p>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <h2>Order items</h2>
+              <CartItemsList cartItems={order?.orderItems} />
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={4}>
+          <CartOrderSummary orderDetails={orderDetails} />
+        </Col>
+      </Row>
     </>
   );
 };

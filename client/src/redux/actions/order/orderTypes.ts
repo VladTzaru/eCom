@@ -6,7 +6,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
 } from '../../constants/order';
-import { OrderI, ErrorT } from '../../../customTypes';
+import { OrderI, ErrorT, OrderDetailsI } from '../../../customTypes';
 
 /////////////////////////////////////////
 // Create order
@@ -34,7 +34,7 @@ export interface OrderDetailsRequest {
 
 export interface OrderDetailsSuccess {
   type: typeof ORDER_DETAILS_SUCCESS;
-  payload: OrderI;
+  payload: OrderDetailsI;
 }
 
 export interface OrderDetailsFail {

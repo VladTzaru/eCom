@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { OrderI } from '../../../customTypes';
+import { OrderDetailsI, OrderI } from '../../../customTypes';
 import { Dispatch } from 'redux';
 import { RootStore } from '../../store';
 import { errorHandler } from '../../../utils/utils';
@@ -60,7 +60,10 @@ export const getOrderDetails = (orderId: string) => async (
       type: ORDER_DETAILS_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/orders/${orderId}`, config);
+    const { data } = await axios.get<OrderDetailsI>(
+      `/api/orders/${orderId}`,
+      config
+    );
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,

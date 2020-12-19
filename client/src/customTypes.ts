@@ -51,14 +51,20 @@ export interface ShippingI {
 }
 
 export interface OrderI {
-  orderItems: CartProductI[];
-  totalItemsPrice: number;
-  shippingAddress: ShippingI;
-  shippingPrice: number;
-  paymentMethod: string;
-  totalPrice: number;
-  taxPrice: number;
+  orderItems?: CartProductI[];
+  totalItemsPrice?: number;
+  shippingAddress?: ShippingI;
+  shippingPrice?: number;
+  paymentMethod?: string;
+  totalPrice?: number;
+  taxPrice?: number;
   _id?: string;
+}
+
+export interface OrderDetailsI extends OrderI, ShippingI {
+  user: Omit<UserI, 'isAdmin' | 'token'>;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type Nullable<T> = T | null;
