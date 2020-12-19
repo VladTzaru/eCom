@@ -3,7 +3,7 @@ import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/store';
-import { MatchParamsI } from '../customTypes';
+import { MatchParamsI, OrderI } from '../customTypes';
 import { RouteComponentProps } from 'react-router-dom';
 import { getOrderDetails } from '../redux/actions/order/order';
 import Loader from '../components/Loader';
@@ -21,9 +21,9 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch]);
+  }, [dispatch, orderId]);
 
-  const orderDetails = {
+  const orderDetails: OrderI = {
     paymentMethod: order?.paymentMethod,
     taxPrice: order?.taxPrice,
     totalItemsPrice: order?.totalItemsPrice,
@@ -45,12 +45,25 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
+                <strong>Name: </strong>
+                <span>{order?.user.name}</span>
+              </p>
+              <p>
+                <strong>Email: </strong> <span>{order?.user.email}</span>
+              </p>
+
+              <p>
                 <strong>Full address: </strong>{' '}
                 <span>{order?.shippingAddress?.address}</span>,{' '}
                 <span>{order?.shippingAddress?.city}</span>,{' '}
                 <span>{order?.shippingAddress?.postalCode}</span>,{' '}
                 <span>{order?.shippingAddress?.country}</span>
               </p>
+              {order?.isDelivered ? (
+                <Message variant='success'>Delivered</Message>
+              ) : (
+                <Message heading='Delivery status'>Not delivered</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -59,6 +72,13 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
                 <strong>Selected: </strong>
                 {order?.paymentMethod}
               </p>
+              {order?.isPayed ? (
+                <Message variant='success'>Payed</Message>
+              ) : (
+                <Message heading='Payment status' variant='danger'>
+                  Not payed
+                </Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>

@@ -63,6 +63,8 @@ export interface OrderI {
 
 export interface OrderDetailsI extends OrderI, ShippingI {
   user: Omit<UserI, 'isAdmin' | 'token'>;
+  isPayed?: boolean;
+  isDelivered?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
