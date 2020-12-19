@@ -11,7 +11,7 @@ import CartItemsList from '../../components/Cart/CartItemsList';
 import CartOrderSummary from '../../components/Cart/CartOrderSummary';
 import CheckoutSteps from '../../components/CheckoutSteps';
 import { RootStore } from '../../redux/store';
-import { OrderDataI } from '../../customTypes';
+import { OrderI } from '../../customTypes';
 
 const PlaceOrderPage = () => {
   const { cartItems } = useSelector((state: RootStore) => state.cart);
@@ -29,10 +29,9 @@ const PlaceOrderPage = () => {
     tax
   );
 
-  const orderDetails: OrderDataI = {
+  const orderDetails: OrderI = {
     paymentMethod: selected,
     tax,
-    taxRate,
     totalItemsPrice,
     totalPrice,
     totalShippingCost,
@@ -78,7 +77,7 @@ const PlaceOrderPage = () => {
         </Col>
 
         <Col md={4}>
-          <CartOrderSummary orderDetails={orderDetails} />
+          <CartOrderSummary taxRate={taxRate} orderDetails={orderDetails} />
         </Col>
       </Row>
     </>

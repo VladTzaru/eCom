@@ -3,7 +3,7 @@ import {
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAIL,
 } from '../../constants/order';
-import { OrderDataI, ErrorT } from '../../../customTypes';
+import { OrderI, ErrorT } from '../../../customTypes';
 
 /////////////////////////////////////////
 // Create order
@@ -14,7 +14,7 @@ export interface OrderCreateRequest {
 
 export interface OrderCreateSuccess {
   type: typeof ORDER_CREATE_SUCCESS;
-  payload: OrderDataI;
+  payload: OrderI;
 }
 
 export interface OrderCreateFail {

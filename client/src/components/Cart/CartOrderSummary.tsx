@@ -1,23 +1,43 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { OrderDataI } from '../../customTypes';
+import { OrderI } from '../../customTypes';
+import { createOrder } from '../../redux/actions/order/order';
 
 interface CartOrderSummaryProps {
-  orderDetails: OrderDataI;
+  orderDetails: OrderI;
+  taxRate: number;
 }
 
 const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   orderDetails,
+  taxRate,
 }) => {
+  const dispatch = useDispatch();
   const {
     cartItems,
+    paymentMethod,
     totalItemsPrice,
     totalShippingCost,
     shippingAddress,
-    taxRate,
     tax,
     totalPrice,
   } = orderDetails;
+
+  const order: OrderI = {
+    cartItems,
+    shippingAddress,
+    paymentMethod,
+    totalItemsPrice,
+    tax,
+    totalShippingCost,
+    totalPrice,
+  };
+
+  const handlePlaceOrder = () => {
+    dispatch(createOrder(order));
+  };
+
   return (
     <Card>
       <ListGroup variant='flush'>
@@ -57,6 +77,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
 
         <ListGroup.Item>
           <Button
+            onClick={handlePlaceOrder}
             type='buton'
             className='btn-block'
             disabled={cartItems.length === 0}

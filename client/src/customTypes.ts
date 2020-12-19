@@ -48,14 +48,13 @@ export interface ShippingI {
   country?: string;
 }
 
-export interface OrderDataI {
+export interface OrderI {
   cartItems: CartProductI[];
   totalItemsPrice: number;
   shippingAddress: ShippingI;
   totalShippingCost: number;
   paymentMethod: string;
   totalPrice: number;
-  taxRate: number;
   tax: number;
 }
 

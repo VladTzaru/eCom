@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { OrderDataI } from '../../../customTypes';
+import { OrderI } from '../../../customTypes';
 import { Dispatch } from 'redux';
 import { RootStore } from '../../store';
 import { errorHandler, addDataToLocalStorage } from '../../../utils/utils';
@@ -9,7 +9,7 @@ import {
   ORDER_CREATE_FAIL,
 } from '../../constants/order';
 
-export const createOrder = (order: OrderDataI) => async (
+export const createOrder = (order: OrderI) => async (
   dispatch: Dispatch,
   getState: () => RootStore
 ) => {
@@ -26,7 +26,7 @@ export const createOrder = (order: OrderDataI) => async (
       type: ORDER_CREATE_REQUEST,
     });
 
-    const { data } = await axios.post<OrderDataI>('/api/orders', order, config);
+    const { data } = await axios.post<OrderI>('/api/orders', order, config);
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
