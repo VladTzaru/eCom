@@ -9,6 +9,7 @@ import shipping from './user/shipping';
 import paymentMethod from './user/paymentMethod';
 import createdOrder from './order/order';
 import orderDetails from './order/orderDetails';
+import orderPayed from './order/orderPay';
 
 const reducer = combineReducers({
   productList,
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   paymentMethod,
   createdOrder,
   orderDetails,
+  orderPayed,
 });
 
 export default reducer;

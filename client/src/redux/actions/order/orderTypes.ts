@@ -5,6 +5,10 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_SUCCESS,
+  ORDER_PAY_FAIL,
+  ORDER_PAY_RESET,
 } from '../../constants/order';
 import { OrderI, ErrorT, OrderDetailsI } from '../../../customTypes';
 
@@ -42,10 +46,34 @@ export interface OrderDetailsFail {
   payload: ErrorT<string>;
 }
 
+/////////////////////////////////////////
+// Pay order
+/////////////////////////////////////////
+export interface OrderPayRequest {
+  type: typeof ORDER_PAY_REQUEST;
+}
+
+export interface OrderPaySuccess {
+  type: typeof ORDER_PAY_SUCCESS;
+}
+
+export interface OrderPayFail {
+  type: typeof ORDER_PAY_FAIL;
+  payload: ErrorT<string>;
+}
+
+export interface OrderPayReset {
+  type: typeof ORDER_PAY_RESET;
+}
+
 export type OrderDispatchTypes =
   | OrderCreateRequest
   | OrderCreateSuccess
   | OrderCreateFail
   | OrderDetailsRequest
   | OrderDetailsSuccess
-  | OrderDetailsFail;
+  | OrderDetailsFail
+  | OrderPayRequest
+  | OrderPaySuccess
+  | OrderPayFail
+  | OrderPayReset;

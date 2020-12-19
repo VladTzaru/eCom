@@ -6,6 +6,7 @@ import { ShippingInitialStateI } from './redux/reducers/user/shipping';
 import { PaymentMethodInitialStateI } from './redux/reducers/user/paymentMethod';
 import { CreateOrderInitialStateI } from './redux/reducers/order/order';
 import { OrderDetailsInitialStateI } from './redux/reducers/order/orderDetails';
+import { PayOrderInitialStateI } from './redux/reducers/order/orderPay';
 
 export interface ProductI {
   _id: string;
@@ -82,6 +83,7 @@ export interface InitialStoreStateI {
   paymentMethod?: PaymentMethodInitialStateI;
   createdOrder?: CreateOrderInitialStateI;
   orderDetails?: OrderDetailsInitialStateI;
+  orderPayed?: PayOrderInitialStateI;
 }
 
 export type ErrorT<T> = T | null;
