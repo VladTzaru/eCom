@@ -41,7 +41,8 @@ const CartItemsList: React.FC<CartItemsListProps> = ({
 
                   {!unhideControls && (
                     <Col md={3}>
-                      {item.quantity} units * {item.price}
+                      {item.quantity} {item.quantity === 1 ? 'unit' : 'units'} *{' '}
+                      {item.price}
                     </Col>
                   )}
 
