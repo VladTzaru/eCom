@@ -46,7 +46,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPaid) {
+    if (!order || order._id !== orderId || successPaid) {
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
