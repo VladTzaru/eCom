@@ -15,6 +15,7 @@ export interface OrderDetailsInitialStateI {
 
 const initialState: OrderDetailsInitialStateI = {
   order: null,
+  loading: true,
 };
 
 const orderDetails = (state = initialState, action: OrderDispatchTypes) => {
