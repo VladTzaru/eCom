@@ -80,10 +80,10 @@ export const getOrderDetails = (orderId: string) => async (
   }
 };
 
-export const payOrder = (orderId: string, paymentResult: object) => async (
-  dispatch: Dispatch,
-  getState: () => RootStore
-) => {
+export const payOrder = (
+  orderId: string | undefined,
+  paymentResult: object
+) => async (dispatch: Dispatch, getState: () => RootStore) => {
   const { user } = getState();
 
   const config = {

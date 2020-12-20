@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/store';
 import { MatchParamsI, OrderI } from '../customTypes';
 import { RouteComponentProps } from 'react-router-dom';
-import { getOrderDetails } from '../redux/actions/order/order';
+import { getOrderDetails, payOrder } from '../redux/actions/order/order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CartOrderSummary from '../components/Cart/CartOrderSummary';
@@ -25,6 +26,11 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   const { loading: loadingPayed, success: successPayed } = useSelector(
     (state: RootStore) => state.orderPayed
   );
+
+  const successPaymentHandler = (paymentResult: any) => {
+    console.log(paymentResult);
+    dispatch(payOrder(order?._id, paymentResult));
+  };
 
   useEffect(() => {
     const addPayPalScript = async (): Promise<void> => {
@@ -108,6 +114,19 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
         </Col>
         <Col md={4}>
           <CartOrderSummary switchToPaymentButton orderDetails={orderDetails} />
+          {!order?.isPayed && (
+            <ListGroup.Item>
+              {loadingPayed && <Loader />}
+              {!sdkReady ? (
+                <Loader />
+              ) : (
+                <PayPalButton
+                  amount={order?.totalPrice}
+                  onSuccess={successPaymentHandler}
+                />
+              )}
+            </ListGroup.Item>
+          )}
         </Col>
       </Row>
     </>
