@@ -17,7 +17,9 @@ const UserAddress: React.FC<UserAdressProps> = ({
 }) => {
   const displayNotification = () =>
     isDelivered ? (
-      <Message variant='success'>Delivered on {deliveredAt}</Message>
+      <Message heading='Delivery status' variant='success'>
+        Delivered on {deliveredAt}
+      </Message>
     ) : (
       <Message variant='danger' heading='Delivery status'>
         Not delivered
