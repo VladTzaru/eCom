@@ -29,8 +29,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     error: errorPaid,
   } = useSelector((state: RootStore) => state.orderPaid);
 
-  const successPaymentHandler = (paymentResult: any) => {
-    console.log(paymentResult);
+  const successPaymentHandler = (paymentResult: object): void => {
     dispatch(payOrder(order?._id, paymentResult));
   };
 
@@ -69,7 +68,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     deliveredAt: order?.deliveredAt,
   };
 
-  return loading ? (
+  return loading || successPaid ? (
     <Loader />
   ) : error || errorPaid ? (
     <Message variant='danger'>{error}</Message>
