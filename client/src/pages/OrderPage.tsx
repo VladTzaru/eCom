@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,16 +18,38 @@ interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
+  const [sdkReady, setSdkReady] = useState(false);
   const { loading, error, order } = useSelector(
     (state: RootStore) => state.orderDetails
   );
+  const { loading: loadingPayed, success: successPayed } = useSelector(
+    (state: RootStore) => state.orderPayed
+  );
 
   useEffect(() => {
-    if (!order || order._id !== orderId) {
+    const addPayPalScript = async (): Promise<void> => {
+      const { data: clientId } = await axios.get<string>('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!order || successPayed) {
       dispatch(getOrderDetails(orderId));
+    } else if (!order.isPayed) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, successPayed]);
 
   const orderDetails: OrderI = {
     paymentMethod: order?.paymentMethod,

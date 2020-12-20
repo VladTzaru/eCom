@@ -74,6 +74,12 @@ export interface OrderDetailsI extends OrderI, ShippingI {
 
 export type Nullable<T> = T | null;
 
+declare global {
+  interface Window {
+    paypal: any;
+  }
+}
+
 export interface InitialStoreStateI {
   productList?: ProductListInitialStateI;
   productDetails?: ProductDetailsInitialStateI;
