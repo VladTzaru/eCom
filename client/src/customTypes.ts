@@ -59,14 +59,14 @@ export interface OrderI {
   paymentMethod?: string;
   totalPrice?: number;
   taxPrice?: number;
-  payedAt?: Date;
+  paidAt?: Date;
   deliveredAt?: Date;
   _id?: string;
 }
 
 export interface OrderDetailsI extends OrderI, ShippingI {
   user: Omit<UserI, 'isAdmin' | 'token'>;
-  isPayed?: boolean;
+  isPaid?: boolean;
   isDelivered?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -89,7 +89,7 @@ export interface InitialStoreStateI {
   paymentMethod?: PaymentMethodInitialStateI;
   createdOrder?: CreateOrderInitialStateI;
   orderDetails?: OrderDetailsInitialStateI;
-  orderPayed?: PayOrderInitialStateI;
+  orderPaid?: PayOrderInitialStateI;
 }
 
 export type ErrorT<T> = T | null;

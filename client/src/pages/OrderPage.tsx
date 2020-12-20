@@ -23,7 +23,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   const { loading, error, order } = useSelector(
     (state: RootStore) => state.orderDetails
   );
-  const { loading: loadingPayed, success: successPayed } = useSelector(
+  const { loading: loadingPaid, success: successPaid } = useSelector(
     (state: RootStore) => state.orderPayed
   );
 
@@ -45,17 +45,16 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPayed) {
+    if (!order || successPaid) {
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPayed) {
+    } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
       } else {
         setSdkReady(true);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, orderId, successPayed]);
+  }, [dispatch, orderId, successPaid, order]);
 
   const orderDetails: OrderI = {
     paymentMethod: order?.paymentMethod,
@@ -64,7 +63,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     totalPrice: order?.totalPrice,
     shippingPrice: order?.shippingPrice,
     orderItems: order?.orderItems,
-    payedAt: order?.payedAt,
+    paidAt: order?.paidAt,
     deliveredAt: order?.deliveredAt,
   };
 
@@ -100,8 +99,8 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
               <h2>Payment method</h2>
               <UserPaymentMethod
                 showNotification
-                payedAt={order?.payedAt}
-                isPayed={order?.isPayed}
+                payedAt={order?.paidAt}
+                isPayed={order?.isPaid}
                 paymentMethod={order?.paymentMethod}
               />
             </ListGroup.Item>
@@ -114,9 +113,9 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
         </Col>
         <Col md={4}>
           <CartOrderSummary switchToPaymentButton orderDetails={orderDetails} />
-          {!order?.isPayed && (
+          {!order?.isPaid && (
             <ListGroup.Item>
-              {loadingPayed && <Loader />}
+              {loadingPaid && <Loader />}
               {!sdkReady ? (
                 <Loader />
               ) : (
