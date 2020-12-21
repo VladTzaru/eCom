@@ -1,5 +1,9 @@
 import { CartDispatchTypes } from '../actions/cart/cartTypes';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cart';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_REMOVE_ALL,
+} from '../constants/cart';
 import { CartProductI } from '../../customTypes';
 
 export interface CartInitialStateI {
@@ -39,6 +43,12 @@ const cart = (state = initialState, action: CartDispatchTypes) => {
         cartItems: state.cartItems.filter(
           (item) => item.product !== action.payload
         ),
+      };
+
+    case CART_REMOVE_ALL:
+      return {
+        ...state,
+        cartItems: [],
       };
 
     default:

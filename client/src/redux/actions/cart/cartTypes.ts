@@ -1,4 +1,8 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../constants/cart';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_REMOVE_ALL,
+} from '../../constants/cart';
 import { CartProductI } from '../../../customTypes';
 
 /////////////////////////////////////////
@@ -14,4 +18,8 @@ export interface CartRemoveItem {
   payload: string;
 }
 
-export type CartDispatchTypes = CartAddItem | CartRemoveItem;
+export interface CartRemoveAll {
+  type: typeof CART_REMOVE_ALL;
+}
+
+export type CartDispatchTypes = CartAddItem | CartRemoveItem | CartRemoveAll;

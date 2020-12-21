@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../constants/cart';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_REMOVE_ALL,
+} from '../../constants/cart';
 import { CartDispatchTypes } from './cartTypes';
 import { RootStore } from '../../store';
 import { ProductI } from '../../../customTypes';
@@ -43,4 +47,14 @@ export const removeFromCart = (id: string) => async (
     'cartItems',
     () => getState().cart.cartItems
   );
+};
+
+export const removeAllFromCart = () => async (
+  dispatch: Dispatch<CartDispatchTypes>
+): Promise<void> => {
+  dispatch({
+    type: CART_REMOVE_ALL,
+  });
+
+  localStorage.removeItem('cartItems');
 };

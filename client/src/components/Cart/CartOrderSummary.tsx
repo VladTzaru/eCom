@@ -8,6 +8,7 @@ import { OrderI } from '../../customTypes';
 import { createOrder, payOrder } from '../../redux/actions/order/order';
 import Loader from '../Loader';
 import { RootStore } from '../../redux/store';
+import { removeAllFromCart } from '../../redux/actions/cart/cart';
 
 interface CartOrderSummaryProps {
   orderDetails: OrderI;
@@ -63,6 +64,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
     };
 
     if (success) {
+      dispatch(removeAllFromCart());
       window.location.reload();
     }
 
@@ -71,7 +73,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
     } else {
       setSdkReady(true);
     }
-  }, [success]);
+  }, [success, dispatch]);
 
   const addPayPalButton = () => {
     return (
