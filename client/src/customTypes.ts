@@ -61,7 +61,11 @@ export interface OrderI {
   totalPrice?: number;
   taxPrice?: number;
   paidAt?: Date;
+  isPaid?: boolean;
   deliveredAt?: Date;
+  isDelivered?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
   _id?: string;
 }
 
