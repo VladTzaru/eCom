@@ -14,6 +14,7 @@ const UsersList: React.FC<UsersListProps> = () => {
   const { users, error, loading } = useSelector(
     (state: RootStore) => state.usersList
   );
+  const { userDetails } = useSelector((state: RootStore) => state.user);
 
   const handleDeleteUser = (id: string | undefined): void => {
     if (id) {
@@ -22,8 +23,10 @@ const UsersList: React.FC<UsersListProps> = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    if (userDetails && userDetails.isAdmin) {
+      dispatch(getAllUsers());
+    }
+  }, [dispatch, userDetails]);
 
   return (
     <>
