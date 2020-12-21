@@ -83,4 +83,22 @@ const updateOrderPaymentStatusToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-export { createNewOrder, getOrderById, updateOrderPaymentStatusToPaid };
+// @desc     Get all orders - logged in user
+// @route    GET /api/orders/my-orders
+// @access   Private
+const getAllUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error('Could not fetch orders');
+  }
+});
+
+export {
+  createNewOrder,
+  getOrderById,
+  updateOrderPaymentStatusToPaid,
+  getAllUserOrders,
+};
