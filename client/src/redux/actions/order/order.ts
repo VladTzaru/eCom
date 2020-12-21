@@ -13,6 +13,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
 } from '../../constants/order';
 
 export const createOrder = (order: OrderI) => async (
@@ -111,6 +114,38 @@ export const payOrder = (
   } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const getAllUserOrders = () => async (
+  dispatch: Dispatch,
+  getState: () => RootStore
+) => {
+  const { user } = getState();
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.userDetails?.token}`,
+    },
+  };
+
+  try {
+    dispatch({
+      type: ORDER_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get<OrderI[]>(`/api/orders/my-orders`, config);
+
+    dispatch({
+      type: ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_FAIL,
       payload: errorHandler(error),
     });
   }
