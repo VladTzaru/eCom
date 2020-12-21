@@ -28,6 +28,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   }, [dispatch, orderId, order]);
 
   const orderDetails: OrderI = {
+    _id: order?._id,
     paymentMethod: order?.paymentMethod,
     taxPrice: order?.taxPrice,
     totalItemsPrice: order?.totalItemsPrice,
