@@ -8,7 +8,10 @@ import {
 import { CartDispatchTypes } from './cartTypes';
 import { RootStore } from '../../store';
 import { ProductI } from '../../../customTypes';
-import { addDataFromReduxStateToLocalStorage } from '../../../utils/utils';
+import {
+  addDataFromReduxStateToLocalStorage,
+  removeDataFromLocalStorage,
+} from '../../../utils/utils';
 
 export const addToCart = (id: string, qty: number) => async (
   dispatch: Dispatch<CartDispatchTypes>,
@@ -56,5 +59,5 @@ export const removeAllFromCart = () => async (
     type: CART_REMOVE_ALL,
   });
 
-  localStorage.removeItem('cartItems');
+  removeDataFromLocalStorage('cartItems');
 };
