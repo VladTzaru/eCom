@@ -52,6 +52,11 @@ const Header: React.FC = () => {
           <LinkContainer to='/'>
             <Navbar.Brand>Tzaru</Navbar.Brand>
           </LinkContainer>
+          {userDetails?.isAdmin && (
+            <LinkContainer to='/admin/users-list'>
+              <Nav.Link>Users</Nav.Link>
+            </LinkContainer>
+          )}
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>

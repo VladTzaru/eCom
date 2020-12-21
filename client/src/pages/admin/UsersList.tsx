@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import { getAllUsers } from '../../redux/actions/user/user';
@@ -13,6 +14,12 @@ const UsersList: React.FC<UsersListProps> = () => {
   const { users, error, loading } = useSelector(
     (state: RootStore) => state.usersList
   );
+
+  const handleDeleteUser = (id: string | undefined): void => {
+    if (id) {
+      console.log('DELETED');
+    }
+  };
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -43,7 +50,19 @@ const UsersList: React.FC<UsersListProps> = () => {
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'Admin' : 'Subscriber'}</td>
                 <td>
-                  <Button variant='link'>Delete</Button>
+                  <LinkContainer to={`/user/${user._id}/edit`}>
+                    <Button variant='link'>
+                      <i className='fas fa-edit' />
+                    </Button>
+                  </LinkContainer>
+                </td>
+                <td>
+                  <Button
+                    variant='link'
+                    onClick={() => handleDeleteUser(user._id)}
+                  >
+                    <i className='fas fa-trash' />
+                  </Button>
                 </td>
               </tr>
             ))}
