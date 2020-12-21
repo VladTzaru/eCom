@@ -169,7 +169,7 @@ export const getAllUsers = () => async (
     });
   } catch (error) {
     dispatch({
-      type: USER_UPDATE_FAIL,
+      type: USERS_LIST_FAIL,
       payload: errorHandler(error),
     });
   }
