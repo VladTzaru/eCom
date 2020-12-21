@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   authUser,
+  getAllUsers,
   getUserProfile,
   registerUser,
   updateUserProfile,
@@ -10,6 +11,7 @@ import validateUser from '../middleware/auth.js';
 const router = express.Router();
 
 router.route('/').post(registerUser);
+router.route('/').get(validateUser, getAllUsers);
 router.route('/login').post(authUser);
 router
   .route('/profile')

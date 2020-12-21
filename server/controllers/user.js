@@ -65,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access   Private
 const getUserProfile = asyncHandler(async (req, res) => {
   const { user } = req;
-  const foundUser = User.findById(user._id);
+  const foundUser = await User.findById(user._id);
 
   if (foundUser) {
     res.json({
@@ -118,4 +118,23 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+// @desc     Get users
+// @route    GET /api/users
+// @access   Private (Admin)
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  if (users) {
+    res.json(users);
+  } else {
+    res.status(500);
+    throw new Error('Could not fetch all users');
+  }
+});
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  updateUserProfile,
+  getAllUsers,
+};
