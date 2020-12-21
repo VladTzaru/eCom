@@ -135,6 +135,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route    DELETE /api/users/:id
 // @access   Private (Admin)
 const deleteUser = asyncHandler(async (req, res) => {
+  console.log('DELETE');
   const user = await User.findById(req.params.id);
   if (user) {
     await user.remove();

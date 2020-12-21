@@ -12,7 +12,7 @@ import { isAdmin, validateUser } from '../middleware/auth.js';
 const router = express.Router();
 
 router.route('/').post(registerUser).get(validateUser, isAdmin, getAllUsers);
-router.route('/:id').delete(validateUser, authUser, deleteUser);
+router.route('/:id').delete(validateUser, isAdmin, deleteUser);
 router.route('/login').post(authUser);
 router
   .route('/profile')
