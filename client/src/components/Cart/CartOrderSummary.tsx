@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Message from '../Message';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
@@ -61,12 +62,16 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
       document.body.appendChild(script);
     };
 
+    if (success) {
+      window.location.reload();
+    }
+
     if (!window.paypal) {
       addPayPalScript();
     } else {
       setSdkReady(true);
     }
-  }, []);
+  }, [success]);
 
   const addPayPalButton = () => {
     return (
@@ -91,7 +96,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   };
 
   const handleSuccessPayment = (paymentResult: object): void => {
-    dispatch(payOrder(_id, paymentResult));
+    dispatch(payOrder(undefined, paymentResult));
   };
 
   return (
@@ -100,6 +105,12 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
         <ListGroup.Item>
           <h2>Order summary</h2>
         </ListGroup.Item>
+
+        {error && (
+          <ListGroup.Item>
+            <Message variant='danger'>{error}</Message>
+          </ListGroup.Item>
+        )}
 
         <ListGroup.Item>
           <Row>
