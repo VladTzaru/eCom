@@ -10,6 +10,7 @@ import paymentMethod from './user/paymentMethod';
 import createdOrder from './order/order';
 import orderDetails from './order/orderDetails';
 import orderPaid from './order/orderPay';
+import orderList from './order/orderList';
 
 const reducer = combineReducers({
   productList,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   createdOrder,
   orderDetails,
   orderPaid,
+  orderList,
 });
 
 export default reducer;
