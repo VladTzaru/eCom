@@ -17,13 +17,49 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     (state: RootStore) => state.orderList
   );
 
+  const renderTable = () => {
+    if (orders.length === 0) return <p>No orders yet.</p>;
+    return (
+      <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>DATE</th>
+            <th>TOTAL</th>
+            <th>PAID</th>
+            <th>DELIVERED</th>
+            <th>OTHER</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order._id}>
+              <td>{order._id}</td>
+              <td>{order.createdAt}</td>
+              <td>{order.totalPrice}</td>
+              <td>{order.isPaid ? 'Yes' : <i className='fas fa-times' />}</td>
+              <td>
+                {order.isDelivered ? 'Yes' : <i className='fas fa-times' />}
+              </td>
+              <td>
+                <LinkContainer to={`/order/${order._id}`}>
+                  <Button variant='link'>Details</Button>
+                </LinkContainer>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  };
+
   useEffect(() => {
     dispatch(getAllUserOrders());
   }, [dispatch]);
 
   return (
     <Row>
-      <Col md={3}>
+      <Col md={4}>
         <Accordion>
           <Card>
             <Card.Header>
@@ -40,45 +76,14 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
         </Accordion>
       </Col>
 
-      <Col md={9}>
+      <Col md={8}>
         <h2>Orders</h2>
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th>OTHER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? 'Yes' : <i className='fas fa-times' />}
-                  </td>
-                  <td>
-                    {order.isDelivered ? 'Yes' : <i className='fas fa-times' />}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant='link'>Details</Button>
-                    </LinkContainer>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          renderTable()
         )}
       </Col>
     </Row>
