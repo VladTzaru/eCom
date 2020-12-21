@@ -27,4 +27,13 @@ const validateUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-export default validateUser;
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error('You do not have Administrator access');
+  }
+};
+
+export { validateUser, isAdmin };

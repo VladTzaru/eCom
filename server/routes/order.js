@@ -5,7 +5,7 @@ import {
   updateOrderPaymentStatusToPaid,
   getAllUserOrders,
 } from '../controllers/order.js';
-import validateUser from '../middleware/auth.js';
+import { validateUser } from '../middleware/auth.js';
 
 const router = express.Router();
 
