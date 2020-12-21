@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
 import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,43 +17,15 @@ interface OrderPageProps extends RouteComponentProps<MatchParamsI> {}
 const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
-  const [sdkReady, setSdkReady] = useState(false);
   const { loading, error, order } = useSelector(
     (state: RootStore) => state.orderDetails
   );
-  const {
-    loading: loadingPaid,
-    success: successPaid,
-    error: errorPaid,
-  } = useSelector((state: RootStore) => state.orderPaid);
-
-  const successPaymentHandler = (paymentResult: object): void => {
-    dispatch(payOrder(order?._id, paymentResult));
-  };
 
   useEffect(() => {
-    const addPayPalScript = async (): Promise<void> => {
-      const { data: clientId } = await axios.get<string>('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
-
-    if (!order || order._id !== orderId || successPaid) {
+    if (!order || order._id !== orderId) {
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPayPalScript();
-      } else {
-        setSdkReady(true);
-      }
     }
-  }, [dispatch, orderId, successPaid, order]);
+  }, [dispatch, orderId, order]);
 
   const orderDetails: OrderI = {
     paymentMethod: order?.paymentMethod,
@@ -68,9 +38,9 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
     deliveredAt: order?.deliveredAt,
   };
 
-  return loading || successPaid ? (
+  return loading ? (
     <Loader />
-  ) : error || errorPaid ? (
+  ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
@@ -113,20 +83,11 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
           </ListGroup>
         </Col>
         <Col md={4}>
-          <CartOrderSummary switchToPaymentButton orderDetails={orderDetails} />
-          {!order?.isPaid && (
-            <ListGroup.Item>
-              {loadingPaid && <Loader />}
-              {!sdkReady ? (
-                <Loader />
-              ) : (
-                <PayPalButton
-                  amount={order?.totalPrice}
-                  onSuccess={successPaymentHandler}
-                />
-              )}
-            </ListGroup.Item>
-          )}
+          <CartOrderSummary
+            isPaid={order?.isPaid}
+            switchToPaymentButton
+            orderDetails={orderDetails}
+          />
         </Col>
       </Row>
     </>

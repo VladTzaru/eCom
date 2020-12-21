@@ -1,22 +1,34 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { OrderI } from '../../customTypes';
-import { createOrder } from '../../redux/actions/order/order';
+import { createOrder, payOrder } from '../../redux/actions/order/order';
+import Loader from '../Loader';
+import { RootStore } from '../../redux/store';
 
 interface CartOrderSummaryProps {
   orderDetails: OrderI;
   taxRate?: number;
+  isPaid?: boolean;
   switchToPaymentButton?: boolean;
 }
 
 const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   orderDetails,
   taxRate,
+  isPaid,
   switchToPaymentButton = false,
 }) => {
+  const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
+  const { loading, error, success } = useSelector(
+    (state: RootStore) => state.orderPaid
+  );
+
   const {
+    _id,
     orderItems,
     paymentMethod,
     shippingAddress,
@@ -36,12 +48,50 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
     totalPrice,
   };
 
+  useEffect(() => {
+    const addPayPalScript = async (): Promise<void> => {
+      const { data: clientId } = await axios.get<string>('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!window.paypal) {
+      addPayPalScript();
+    } else {
+      setSdkReady(true);
+    }
+  }, []);
+
+  const addPayPalButton = () => {
+    return (
+      !isPaid && (
+        <ListGroup.Item>
+          {loading && <Loader />}
+          {!sdkReady ? (
+            <Loader />
+          ) : (
+            <PayPalButton
+              amount={order?.totalPrice}
+              onSuccess={handleSuccessPayment}
+            />
+          )}
+        </ListGroup.Item>
+      )
+    );
+  };
+
   const handlePlaceOrder = () => {
     dispatch(createOrder(order));
   };
 
-  const handlePurchase = () => {
-    console.log('BUY');
+  const handleSuccessPayment = (paymentResult: object): void => {
+    dispatch(payOrder(order._id, paymentResult));
   };
 
   return (
@@ -80,17 +130,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
         </ListGroup.Item>
 
         {switchToPaymentButton ? (
-          <ListGroup.Item>
-            <Button
-              onClick={handlePurchase}
-              type='buton'
-              variant='success'
-              className='btn-block'
-              disabled={orderItems?.length === 0}
-            >
-              Purchase
-            </Button>
-          </ListGroup.Item>
+          addPayPalButton()
         ) : (
           <ListGroup.Item>
             <Button
