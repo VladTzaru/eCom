@@ -10,7 +10,8 @@ import validateUser from '../middleware/auth.js';
 const router = express.Router();
 
 router.route('/').post(validateUser, createNewOrder);
+router.route('/my-orders').get(validateUser, getAllUserOrders);
 router.route('/:id').get(validateUser, getOrderById);
 router.route('/:id/pay').put(validateUser, updateOrderPaymentStatusToPaid);
-router.route('/my-orders').get(validateUser, getAllUserOrders);
+
 export default router;
