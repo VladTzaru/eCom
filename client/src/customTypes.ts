@@ -8,6 +8,7 @@ import { CreateOrderInitialStateI } from './redux/reducers/order/order';
 import { OrderDetailsInitialStateI } from './redux/reducers/order/orderDetails';
 import { PayOrderInitialStateI } from './redux/reducers/order/orderPay';
 import { OrderListInitialStateI } from './redux/reducers/order/orderList';
+import { UserListInitialStateI } from './redux/reducers/user/usersList';
 
 export interface ProductI {
   _id: string;
@@ -96,6 +97,7 @@ export interface InitialStoreStateI {
   orderDetails?: OrderDetailsInitialStateI;
   orderPaid?: PayOrderInitialStateI;
   orderList?: OrderListInitialStateI;
+  usersList?: UserListInitialStateI;
 }
 
 export type ErrorT<T> = T | null;

@@ -15,6 +15,9 @@ import {
   USER_UPDATE_FAIL,
   USER_SAVE_SHIPPING_INFO,
   USER_SAVE_PAYMENT_METHOD,
+  USERS_LIST_REQUEST,
+  USERS_LIST_SUCCESS,
+  USERS_LIST_FAIL,
 } from '../../constants/user';
 
 export const login = (email: string, password: string) => async (
@@ -138,4 +141,24 @@ export const savePaymentMethod = (method: string) => (
     payload: method,
   });
   addDataToLocalStorage('paymentMethod', method);
+};
+
+export const getAllUsers = () => async (dispatch: Dispatch): Promise<void> => {
+  try {
+    dispatch({
+      type: USERS_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get('/api/users');
+
+    dispatch({
+      type: USERS_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
 };

@@ -11,6 +11,9 @@ import {
   USER_UPDATE_FAIL,
   USER_SAVE_SHIPPING_INFO,
   USER_SAVE_PAYMENT_METHOD,
+  USERS_LIST_SUCCESS,
+  USERS_LIST_REQUEST,
+  USERS_LIST_FAIL,
 } from '../../constants/user';
 
 import { UserI, ErrorT, ShippingI } from '../../../customTypes';
@@ -71,6 +74,23 @@ export interface UserUpdateFail {
 }
 
 /////////////////////////////////////////
+// Get all users (admin)
+/////////////////////////////////////////
+export interface UsersListRequest {
+  type: typeof USERS_LIST_REQUEST;
+}
+
+export interface UsersListSuccess {
+  type: typeof USERS_LIST_SUCCESS;
+  payload: UserI[];
+}
+
+export interface UsersListFail {
+  type: typeof USERS_LIST_FAIL;
+  payload: ErrorT<string>;
+}
+
+/////////////////////////////////////////
 // Shipping
 /////////////////////////////////////////
 export interface UserSaveShippingInfo {
@@ -98,4 +118,7 @@ export type UserDispatchTypes =
   | UserUpdateSuccess
   | UserUpdateFail
   | UserSaveShippingInfo
-  | UserSavePaymentMethod;
+  | UserSavePaymentMethod
+  | UsersListRequest
+  | UsersListSuccess
+  | UsersListFail;
