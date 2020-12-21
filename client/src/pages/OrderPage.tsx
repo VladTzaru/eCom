@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CartItemsList from '../components/Cart/CartItemsList';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/store';
 import { MatchParamsI, OrderI } from '../customTypes';
 import { RouteComponentProps } from 'react-router-dom';
-import { getOrderDetails, payOrder } from '../redux/actions/order/order';
+import { getOrderDetails } from '../redux/actions/order/order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CartOrderSummary from '../components/Cart/CartOrderSummary';
@@ -71,8 +71,8 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
               <h2>Payment method</h2>
               <UserPaymentMethod
                 showNotification
-                payedAt={order?.paidAt}
-                isPayed={order?.isPaid}
+                paidAt={order?.paidAt}
+                isPaid={order?.isPaid}
                 paymentMethod={order?.paymentMethod}
               />
             </ListGroup.Item>
@@ -85,6 +85,7 @@ const OrderPage: React.FC<OrderPageProps> = ({ match }) => {
         </Col>
         <Col md={4}>
           <CartOrderSummary
+            taxRate={25}
             isPaid={order?.isPaid}
             switchToPaymentButton
             orderDetails={orderDetails}

@@ -4,24 +4,24 @@ import Message from '../Message';
 interface UserPaymentMethodProps {
   paymentMethod?: string;
   showNotification?: boolean;
-  payedAt?: Date;
-  isPayed?: boolean;
+  paidAt?: Date;
+  isPaid?: boolean;
 }
 
 const UserPaymentMethod: React.FC<UserPaymentMethodProps> = ({
   paymentMethod,
   showNotification = false,
-  payedAt,
-  isPayed,
+  paidAt,
+  isPaid,
 }) => {
   const displayNotification = () =>
-    isPayed ? (
+    isPaid ? (
       <Message heading='Payment status' variant='success'>
-        Payed on {payedAt}
+        Paid on {paidAt}
       </Message>
     ) : (
       <Message variant='danger' heading='Payment status'>
-        Not payed
+        Not paid
       </Message>
     );
 

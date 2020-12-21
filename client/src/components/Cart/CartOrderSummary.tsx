@@ -96,7 +96,7 @@ const CartOrderSummary: React.FC<CartOrderSummaryProps> = ({
   };
 
   const handleSuccessPayment = (paymentResult: object): void => {
-    dispatch(payOrder(undefined, paymentResult));
+    dispatch(payOrder(_id, paymentResult));
   };
 
   return (
