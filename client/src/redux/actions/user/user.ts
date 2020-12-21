@@ -19,6 +19,7 @@ import {
   USERS_LIST_SUCCESS,
   USERS_LIST_FAIL,
 } from '../../constants/user';
+import { RootStore } from '../../store';
 
 export const login = (email: string, password: string) => async (
   dispatch: Dispatch
@@ -143,13 +144,24 @@ export const savePaymentMethod = (method: string) => (
   addDataToLocalStorage('paymentMethod', method);
 };
 
-export const getAllUsers = () => async (dispatch: Dispatch): Promise<void> => {
+export const getAllUsers = () => async (
+  dispatch: Dispatch,
+  getState: () => RootStore
+): Promise<void> => {
+  const token = getState().user.userDetails?.token;
+
   try {
     dispatch({
       type: USERS_LIST_REQUEST,
     });
 
-    const { data } = await axios.get('/api/users');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.get('/api/users', config);
 
     dispatch({
       type: USERS_LIST_SUCCESS,
