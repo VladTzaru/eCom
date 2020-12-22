@@ -118,7 +118,7 @@ export interface UserDeleteRequest {
 
 export interface UserDeleteSuccess {
   type: typeof USER_DELETE_SUCCESS;
-  payload: string;
+  payload: UserI;
 }
 
 export interface UserDeleteFail {
