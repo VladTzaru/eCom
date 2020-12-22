@@ -3,8 +3,10 @@ import {
   authUser,
   deleteUser,
   getAllUsers,
+  getUser,
   getUserProfile,
   registerUser,
+  updateUser,
   updateUserProfile,
 } from '../controllers/user.js';
 import { isAdmin, validateUser } from '../middleware/auth.js';
@@ -12,7 +14,11 @@ import { isAdmin, validateUser } from '../middleware/auth.js';
 const router = express.Router();
 
 router.route('/').post(registerUser).get(validateUser, isAdmin, getAllUsers);
-router.route('/:id').delete(validateUser, isAdmin, deleteUser);
+router
+  .route('/:id')
+  .delete(validateUser, isAdmin, deleteUser)
+  .get(validateUser, isAdmin, getUser)
+  .put(validateUser, isAdmin, updateUser);
 router.route('/login').post(authUser);
 router
   .route('/profile')
