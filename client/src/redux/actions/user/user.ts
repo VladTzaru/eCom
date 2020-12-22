@@ -18,6 +18,9 @@ import {
   USERS_LIST_REQUEST,
   USERS_LIST_SUCCESS,
   USERS_LIST_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
 } from '../../constants/user';
 import { RootStore } from '../../store';
 
@@ -170,6 +173,37 @@ export const getAllUsers = () => async (
   } catch (error) {
     dispatch({
       type: USERS_LIST_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const deleteUser = (userId: string) => async (
+  dispatch: Dispatch,
+  getState: () => RootStore
+): Promise<void> => {
+  const token = getState().user.userDetails?.token;
+
+  try {
+    dispatch({
+      type: USER_DELETE_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.delete<UserI>(`/api/users/${userId}`, config);
+
+    dispatch({
+      type: USER_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAIL,
       payload: errorHandler(error),
     });
   }

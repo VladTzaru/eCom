@@ -5,6 +5,9 @@ import {
   USERS_LIST_REQUEST,
   USERS_LIST_SUCCESS,
   USERS_LIST_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
 } from '../../constants/user';
 
 export interface UserListInitialStateI {
@@ -36,6 +39,26 @@ const usersList = (
       };
 
     case USERS_LIST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case USER_DELETE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: state.users.filter((user) => user._id !== action.payload),
+      };
+
+    case USER_DELETE_FAIL:
       return {
         ...state,
         loading: false,

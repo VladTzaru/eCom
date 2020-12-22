@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-import { getAllUsers } from '../../redux/actions/user/user';
+import { deleteUser, getAllUsers } from '../../redux/actions/user/user';
 import { RootStore } from '../../redux/store';
 
 interface UsersListProps {}
@@ -18,7 +18,7 @@ const UsersList: React.FC<UsersListProps> = () => {
 
   const handleDeleteUser = (id: string | undefined): void => {
     if (id) {
-      console.log('DELETED');
+      dispatch(deleteUser(id));
     }
   };
 
