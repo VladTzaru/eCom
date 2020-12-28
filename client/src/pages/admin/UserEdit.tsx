@@ -5,12 +5,13 @@ import { Button, FormGroup } from 'react-bootstrap';
 import FormContainer from '../../components/Form/FormContainer';
 import * as Yup from 'yup';
 import FormInput from '../../components/Form/FormInput';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { RootStore } from '../../redux/store';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { MatchParamsI } from '../../customTypes';
 import { FormLabel } from 'react-bootstrap';
+import { getUserProfile } from '../../redux/actions/user/user';
 
 interface Values {
   email: string;
@@ -34,65 +35,83 @@ const validationSchema = Yup.object({
 const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
   const userId = match.params.id;
   const dispatch = useDispatch();
-  const { userDetails, loading, error } = useSelector(
-    (state: RootStore) => state.user
+  const { userProfileInformation, loading, error } = useSelector(
+    (state: RootStore) => state.userProfile
   );
 
-  useEffect(() => {});
+  useEffect(() => {
+    dispatch(getUserProfile(userId));
+    if (userProfileInformation.name) {
+      initialValues.email = userProfileInformation.email!;
+      initialValues.name = userProfileInformation.name!;
+      initialValues.isAdmin = userProfileInformation.isAdmin!;
+    }
+  }, [
+    userId,
+    dispatch,
+    userProfileInformation.name,
+    userProfileInformation.email,
+    userProfileInformation.isAdmin,
+  ]);
 
   return (
     <FormContainer>
-      <h4>Update user profile</h4>
-      {error && (
-        <Message visible={true} variant='danger'>
-          {error}
-        </Message>
+      <Link className='btn btn-light my-3' to='/admin/users-list'>
+        Go back
+      </Link>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <>
+          <h4>Edit user {userProfileInformation.name}</h4>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              console.log(values);
+            }}
+          >
+            {({ dirty, isValid }) => (
+              <Form>
+                <FormGroup>
+                  <Field
+                    label='Name'
+                    name='name'
+                    component={FormInput}
+                    placeholder='Enter name'
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <Field
+                    label='Email'
+                    name='email'
+                    component={FormInput}
+                    placeholder='Enter email'
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <Field className='mr-2' type='checkbox' name='isAdmin' />
+                  <FormLabel>Admin</FormLabel>
+                </FormGroup>
+
+                <FormGroup>
+                  <Button
+                    disabled={!isValid || loading}
+                    variant='primary'
+                    type='submit'
+                  >
+                    {loading ? 'Loading...' : 'Update'}
+                  </Button>
+                </FormGroup>
+              </Form>
+            )}
+          </Formik>
+        </>
       )}
-      {loading && <Loader />}
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        {({ dirty, isValid }) => (
-          <Form>
-            <FormGroup>
-              <Field
-                label='Name'
-                name='name'
-                component={FormInput}
-                placeholder='Enter name'
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Field
-                label='Email'
-                name='email'
-                component={FormInput}
-                placeholder='Enter email'
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Field className='mr-2' type='checkbox' name='isAdmin' />
-              <FormLabel>Admin</FormLabel>
-            </FormGroup>
-
-            <FormGroup>
-              <Button
-                disabled={!isValid || !dirty || loading}
-                variant='primary'
-                type='submit'
-              >
-                {loading ? 'Loading...' : 'Update'}
-              </Button>
-            </FormGroup>
-          </Form>
-        )}
-      </Formik>
     </FormContainer>
   );
 };
