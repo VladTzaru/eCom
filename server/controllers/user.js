@@ -145,6 +145,44 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc     Get a user by ID
+// @route    GET /api/users/:id
+// @access   Private (Admin)
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(500);
+    throw new Error('Could not fetch all users');
+  }
+});
+
+// @desc     Update user
+// @route    PUT /api/users/:id
+// @access   Private (Admin)
+const updateUser = asyncHandler(async (req, res) => {
+  const foundUser = await User.findById(req.params.id);
+
+  if (foundUser) {
+    foundUser.name = req.body.name || foundUser.name;
+    foundUser.email = req.body.email || foundUser.email;
+    foundUser.isAdmin = req.body.isAdmin;
+
+    const updatedUser = await foundUser.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 export {
   authUser,
   getUserProfile,
@@ -152,4 +190,6 @@ export {
   updateUserProfile,
   getAllUsers,
   deleteUser,
+  getUserById,
+  updateUser,
 };
