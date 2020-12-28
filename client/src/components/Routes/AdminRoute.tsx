@@ -4,12 +4,15 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../redux/store';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
+import { MatchParamsI } from '../../customTypes';
+
+interface ExtendedRouteProps extends RouteComponentProps<MatchParamsI> {}
 
 interface AdminRouteProps {
   path: string;
   component:
-    | FunctionComponent<RouteComponentProps>
-    | ComponentClass<RouteComponentProps>;
+    | FunctionComponent<ExtendedRouteProps>
+    | ComponentClass<ExtendedRouteProps>;
 }
 
 const AdminRoute: React.FC<AdminRouteProps> = ({ component, ...props }) => {

@@ -1,49 +1,45 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
-import { Button, Col, FormGroup, Row } from 'react-bootstrap';
+import { Button, FormGroup } from 'react-bootstrap';
 import FormContainer from '../../components/Form/FormContainer';
 import * as Yup from 'yup';
 import FormInput from '../../components/Form/FormInput';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { RootStore } from '../../redux/store';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { register } from '../../redux/actions/user/user';
+import { MatchParamsI } from '../../customTypes';
 
 interface Values {
   email: string;
-  password: string;
   name: string;
 }
 
-interface UserEditProps extends RouteComponentProps {}
+interface UserEditProps extends RouteComponentProps<MatchParamsI> {}
 
 const initialValues: Values = {
   email: '',
-  password: '',
   name: '',
 };
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
-  password: Yup.string().required().min(6),
   name: Yup.string().required().min(3),
 });
 
-const UserEdit: React.FC<UserEditProps> = ({ history }) => {
+const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
+  const userId = match.params.id;
   const dispatch = useDispatch();
   const { userDetails, loading, error } = useSelector(
     (state: RootStore) => state.user
   );
 
-  useEffect(() => {
-    if (userDetails) history.push('/');
-  }, [history, userDetails]);
+  useEffect(() => {});
 
   return (
     <FormContainer>
-      <h4>Register your account</h4>
+      <h4>Update user profile</h4>
       {error && (
         <Message visible={true} variant='danger'>
           {error}
@@ -53,8 +49,8 @@ const UserEdit: React.FC<UserEditProps> = ({ history }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={({ email, password, name }) => {
-          dispatch(register(email, password, name));
+        onSubmit={(values) => {
+          console.log(values);
         }}
       >
         {({ dirty, isValid }) => (
@@ -78,33 +74,17 @@ const UserEdit: React.FC<UserEditProps> = ({ history }) => {
             </FormGroup>
 
             <FormGroup>
-              <Field
-                label='Password'
-                name='password'
-                type='password'
-                component={FormInput}
-                placeholder='Enter password'
-              />
-            </FormGroup>
-
-            <FormGroup>
               <Button
                 disabled={!isValid || !dirty || loading}
                 variant='primary'
                 type='submit'
               >
-                {loading ? 'Loading...' : 'Register'}
+                {loading ? 'Loading...' : 'Update'}
               </Button>
             </FormGroup>
           </Form>
         )}
       </Formik>
-
-      <Row className='py-3'>
-        <Col>
-          <span>Already a customer?</span> <Link to='/login'>Login</Link>
-        </Col>
-      </Row>
     </FormContainer>
   );
 };
