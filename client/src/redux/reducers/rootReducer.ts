@@ -13,6 +13,7 @@ import orderPaid from './order/orderPay';
 import orderList from './order/orderList';
 import usersList from './user/usersList';
 import userProfile from '../reducers/user/userProfile';
+import updatedUserProfile from '../reducers/user/updatedUserProfile';
 
 const reducer = combineReducers({
   productList,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   orderList,
   usersList,
   userProfile,
+  updatedUserProfile,
 });
 
 export default reducer;

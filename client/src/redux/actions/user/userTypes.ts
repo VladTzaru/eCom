@@ -20,6 +20,9 @@ import {
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
 } from '../../constants/user';
 
 import { UserI, ErrorT, ShippingI } from '../../../customTypes';
@@ -146,6 +149,23 @@ export interface UserProfileFail {
   payload: ErrorT<string>;
 }
 
+/////////////////////////////////////////
+// Update user profile information
+/////////////////////////////////////////
+export interface UserUpdateProfileRequest {
+  type: typeof USER_UPDATE_PROFILE_REQUEST;
+}
+
+export interface UserUpdateProfileSuccess {
+  type: typeof USER_UPDATE_PROFILE_SUCCESS;
+  payload: UserI;
+}
+
+export interface UserUpdateProfileFail {
+  type: typeof USER_UPDATE_PROFILE_FAIL;
+  payload: ErrorT<string>;
+}
+
 export type UserDispatchTypes =
   | UserLoginRequest
   | UserLoginSuccess
@@ -167,4 +187,7 @@ export type UserDispatchTypes =
   | UserDeleteFail
   | UserProfileRequest
   | UserProfileSuccess
-  | UserProfileFail;
+  | UserProfileFail
+  | UserUpdateProfileRequest
+  | UserUpdateProfileSuccess
+  | UserUpdateProfileFail;

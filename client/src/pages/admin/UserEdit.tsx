@@ -53,7 +53,7 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
 
   return (
     <FormContainer>
-      <Link className='btn btn-light my-3' to='/admin/users-list'>
+      <Link className='btn btn-light mb-5' to='/admin/users-list'>
         Go back
       </Link>
       {loading ? (
@@ -62,7 +62,7 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <h4>Edit user {userProfileInformation.name}</h4>
+          <h4 className='mb-5'>Edit user {userProfileInformation.name}</h4>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -70,7 +70,7 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
               console.log(values);
             }}
           >
-            {({ dirty, isValid }) => (
+            {({ isValid, values }) => (
               <Form>
                 <FormGroup>
                   <Field
@@ -92,7 +92,11 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
 
                 <FormGroup>
                   <Field className='mr-2' type='checkbox' name='isAdmin' />
-                  <FormLabel>Admin</FormLabel>
+                  <FormLabel>
+                    {values.isAdmin
+                      ? 'Revoke admin access'
+                      : 'Add admin access'}
+                  </FormLabel>
                 </FormGroup>
 
                 <FormGroup>
