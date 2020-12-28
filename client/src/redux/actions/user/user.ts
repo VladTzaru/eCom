@@ -21,6 +21,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
 } from '../../constants/user';
 import { RootStore } from '../../store';
 
@@ -204,6 +207,37 @@ export const deleteUser = (userId: string) => async (
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const getUserProfile = (userId: string) => async (
+  dispatch: Dispatch,
+  getState: () => RootStore
+): Promise<void> => {
+  const token = getState().user.userDetails?.token;
+
+  try {
+    dispatch({
+      type: USER_PROFILE_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.get<UserI>(`/api/users/${userId}`, config);
+
+    dispatch({
+      type: USER_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_FAIL,
       payload: errorHandler(error),
     });
   }

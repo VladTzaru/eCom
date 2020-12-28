@@ -17,6 +17,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
 } from '../../constants/user';
 
 import { UserI, ErrorT, ShippingI } from '../../../customTypes';
@@ -126,6 +129,23 @@ export interface UserDeleteFail {
   payload: ErrorT<string>;
 }
 
+/////////////////////////////////////////
+// User profile information
+/////////////////////////////////////////
+export interface UserProfileRequest {
+  type: typeof USER_PROFILE_REQUEST;
+}
+
+export interface UserProfileSuccess {
+  type: typeof USER_PROFILE_SUCCESS;
+  payload: UserI;
+}
+
+export interface UserProfileFail {
+  type: typeof USER_PROFILE_FAIL;
+  payload: ErrorT<string>;
+}
+
 export type UserDispatchTypes =
   | UserLoginRequest
   | UserLoginSuccess
@@ -144,4 +164,7 @@ export type UserDispatchTypes =
   | UsersListFail
   | UserDeleteRequest
   | UserDeleteSuccess
-  | UserDeleteFail;
+  | UserDeleteFail
+  | UserProfileRequest
+  | UserProfileSuccess
+  | UserProfileFail;
