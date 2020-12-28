@@ -18,7 +18,10 @@ import PlaceOrderPage from './pages/checkout/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
 import CartPage from './pages/checkout/CartPage';
 import UsersList from './pages/admin/UsersList';
+
+// Admin routes
 import AdminRoute from './components/Routes/AdminRoute';
+import UserEdit from './pages/admin/UserEdit';
 
 const App: React.FC = () => {
   return (
@@ -37,7 +40,9 @@ const App: React.FC = () => {
             <Route path='/checkout/place-order' component={PlaceOrderPage} />
             <Route path='/order/:id' component={OrderPage} />
             <Route path='/cart/:id?' component={CartPage} />
+
             <AdminRoute path='/admin/users-list' component={UsersList} />
+            <AdminRoute path='/admin/user/:id/edit' component={UserEdit} />
           </Switch>
         </Container>
       </main>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ComponentClass } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../redux/store';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -7,7 +7,9 @@ import { Button } from 'react-bootstrap';
 
 interface AdminRouteProps {
   path: string;
-  component: FunctionComponent | ComponentClass;
+  component:
+    | FunctionComponent<RouteComponentProps>
+    | ComponentClass<RouteComponentProps>;
 }
 
 const AdminRoute: React.FC<AdminRouteProps> = ({ component, ...props }) => {
