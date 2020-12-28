@@ -246,10 +246,12 @@ export const getUserProfile = (userId: string) => async (
   }
 };
 
-export const updateUserProfile = (userId: string) => async (
-  dispatch: Dispatch,
-  getState: () => RootStore
-): Promise<void> => {
+export const updateUserProfile = (
+  userId: string,
+  email: string,
+  isAdmin: boolean,
+  name: string
+) => async (dispatch: Dispatch, getState: () => RootStore): Promise<void> => {
   const token = getState().user.userDetails?.token;
 
   try {
@@ -263,7 +265,11 @@ export const updateUserProfile = (userId: string) => async (
       },
     };
 
-    const { data } = await axios.put<UserI>(`/api/users/${userId}`, config);
+    const { data } = await axios.put<UserI>(
+      `/api/users/${userId}`,
+      { email, isAdmin, name },
+      config
+    );
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,

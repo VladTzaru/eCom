@@ -11,7 +11,10 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { MatchParamsI } from '../../customTypes';
 import { FormLabel } from 'react-bootstrap';
-import { getUserProfile } from '../../redux/actions/user/user';
+import {
+  getUserProfile,
+  updateUserProfile,
+} from '../../redux/actions/user/user';
 
 interface Values {
   email: string;
@@ -32,12 +35,18 @@ const validationSchema = Yup.object({
   name: Yup.string().required().min(3),
 });
 
-const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
+const UserEdit: React.FC<UserEditProps> = ({ match }) => {
   const userId = match.params.id;
   const dispatch = useDispatch();
   const { userProfileInformation, loading, error } = useSelector(
     (state: RootStore) => state.userProfile
   );
+
+  const {
+    success,
+    loading: userProfileLoading,
+    error: userProfileError,
+  } = useSelector((state: RootStore) => state.updatedUserProfile);
 
   useEffect(() => {
     if (userProfileInformation._id !== userId) {
@@ -56,18 +65,25 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
       <Link className='btn btn-light mb-5' to='/admin/users-list'>
         Go back
       </Link>
+      {success ? (
+        <Message heading='Success' variant='success'>
+          User updated
+        </Message>
+      ) : userProfileError ? (
+        <Message variant='danger'>{userProfileError}</Message>
+      ) : null}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <h4 className='mb-5'>Edit user {userProfileInformation.name}</h4>
+          <h4 className='mb-5'>Edit user</h4>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={({ email, isAdmin, name }) => {
+              dispatch(updateUserProfile(userId, email, isAdmin, name));
             }}
           >
             {({ isValid, values }) => (
@@ -101,11 +117,11 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
 
                 <FormGroup>
                   <Button
-                    disabled={!isValid || loading}
+                    disabled={!isValid || loading || userProfileLoading}
                     variant='primary'
                     type='submit'
                   >
-                    {loading ? 'Loading...' : 'Update'}
+                    {loading || userProfileLoading ? 'Loading...' : 'Update'}
                   </Button>
                 </FormGroup>
               </Form>
