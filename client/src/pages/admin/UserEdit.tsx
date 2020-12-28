@@ -40,19 +40,16 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
   );
 
   useEffect(() => {
-    dispatch(getUserProfile(userId));
-    if (userProfileInformation.name) {
-      initialValues.email = userProfileInformation.email!;
-      initialValues.name = userProfileInformation.name!;
-      initialValues.isAdmin = userProfileInformation.isAdmin!;
+    if (userProfileInformation._id !== userId) {
+      dispatch(getUserProfile(userId));
     }
-  }, [
-    userId,
-    dispatch,
-    userProfileInformation.name,
-    userProfileInformation.email,
-    userProfileInformation.isAdmin,
-  ]);
+  }, [userId, userProfileInformation._id, dispatch]);
+
+  if (userProfileInformation.name) {
+    initialValues.email = userProfileInformation.email!;
+    initialValues.name = userProfileInformation.name!;
+    initialValues.isAdmin = userProfileInformation.isAdmin!;
+  }
 
   return (
     <FormContainer>
