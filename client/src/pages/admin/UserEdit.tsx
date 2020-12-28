@@ -10,10 +10,12 @@ import { RootStore } from '../../redux/store';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { MatchParamsI } from '../../customTypes';
+import { FormLabel } from 'react-bootstrap';
 
 interface Values {
   email: string;
   name: string;
+  isAdmin: boolean;
 }
 
 interface UserEditProps extends RouteComponentProps<MatchParamsI> {}
@@ -21,6 +23,7 @@ interface UserEditProps extends RouteComponentProps<MatchParamsI> {}
 const initialValues: Values = {
   email: '',
   name: '',
+  isAdmin: false,
 };
 
 const validationSchema = Yup.object({
@@ -71,6 +74,11 @@ const UserEdit: React.FC<UserEditProps> = ({ match, history }) => {
                 component={FormInput}
                 placeholder='Enter email'
               />
+            </FormGroup>
+
+            <FormGroup>
+              <Field className='mr-2' type='checkbox' name='isAdmin' />
+              <FormLabel>Admin</FormLabel>
             </FormGroup>
 
             <FormGroup>

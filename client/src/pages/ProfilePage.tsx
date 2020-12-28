@@ -37,9 +37,19 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
               <td>{order._id}</td>
               <td>{order.createdAt}</td>
               <td>{order.totalPrice}</td>
-              <td>{order.isPaid ? 'Yes' : <i className='fas fa-times' />}</td>
               <td>
-                {order.isDelivered ? 'Yes' : <i className='fas fa-times' />}
+                {order.isPaid ? (
+                  <i style={{ color: 'green' }} className='fas fa-check' />
+                ) : (
+                  <i style={{ color: 'red' }} className='fas fa-times' />
+                )}
+              </td>
+              <td>
+                {order.isDelivered ? (
+                  <i style={{ color: 'green' }} className='fas fa-check' />
+                ) : (
+                  <i style={{ color: 'red' }} className='fas fa-times' />
+                )}
               </td>
               <td>
                 <LinkContainer to={`/order/${order._id}`}>
