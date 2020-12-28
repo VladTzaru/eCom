@@ -131,6 +131,45 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc     Get a user by ID
+// @route    GET /api/users/:id
+// @access   Private (Admin)
+const getUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc     Update user profile
+// @route    PUT /api/users/:id
+// @access   Private (Admin)
+const updateUser = asyncHandler(async (req, res) => {
+  const foundUser = await User.findById(req.params.id);
+
+  if (foundUser) {
+    foundUser.name = req.body.name || foundUser.name;
+    foundUser.email = req.body.email || foundUser.email;
+    foundUser.isAdmin = req.body.isAdmin;
+    if (req.body.password) foundUser.password = req.body.password;
+
+    const updatedUser = await foundUser.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 // @desc     Delete a user
 // @route    DELETE /api/users/:id
 // @access   Private (Admin)
